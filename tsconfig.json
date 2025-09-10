@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@bmad/shared/*": ["./packages/shared/src/*"],
+      "@bmad/api/*": ["./packages/api/src/*"],
+      "@bmad/realtime/*": ["./packages/realtime/src/*"]
+    }
+  },
+  "references": [
+    { "path": "./packages/shared" },
+    { "path": "./packages/api" },
+    { "path": "./packages/realtime" },
+    { "path": "./packages/web" }
+  ],
+  "include": [],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}

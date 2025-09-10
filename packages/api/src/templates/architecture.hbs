@@ -1,0 +1,333 @@
+{{> header}}
+
+## Architecture Overview
+
+{{#if technicalArchitecture}}
+### Architectural Pattern
+{{technicalArchitecture.systemArchitecture.architecturalPattern}}
+
+### System Components
+{{#each technicalArchitecture.systemArchitecture.components}}
+#### {{name}} ({{type}})
+
+**Responsibilities:**
+{{bulletList responsibilities}}
+
+**Interfaces:**
+{{bulletList interfaces}}
+
+{{#if dependencies.length}}
+**Dependencies:**
+{{bulletList dependencies}}
+{{/if}}
+
+---
+
+{{/each}}
+{{else}}
+*Technical architecture design will be completed during the architect phase.*
+{{/if}}
+
+## Technology Stack
+
+{{#if technicalArchitecture.technologyStack}}
+### Frontend Technologies
+- **Framework:** {{technicalArchitecture.technologyStack.frontend.framework}}
+- **Language:** {{technicalArchitecture.technologyStack.frontend.language}}
+{{#if technicalArchitecture.technologyStack.frontend.stateManagement}}
+- **State Management:** {{technicalArchitecture.technologyStack.frontend.stateManagement}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.frontend.styling}}
+- **Styling:** {{technicalArchitecture.technologyStack.frontend.styling}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.frontend.buildTool}}
+- **Build Tool:** {{technicalArchitecture.technologyStack.frontend.buildTool}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.frontend.testingFramework}}
+- **Testing:** {{technicalArchitecture.technologyStack.frontend.testingFramework}}
+{{/if}}
+
+### Backend Technologies
+- **Framework:** {{technicalArchitecture.technologyStack.backend.framework}}
+- **Language:** {{technicalArchitecture.technologyStack.backend.language}}
+{{#if technicalArchitecture.technologyStack.backend.runtime}}
+- **Runtime:** {{technicalArchitecture.technologyStack.backend.runtime}}
+{{/if}}
+- **Database:** {{technicalArchitecture.technologyStack.backend.database}}
+{{#if technicalArchitecture.technologyStack.backend.orm}}
+- **ORM:** {{technicalArchitecture.technologyStack.backend.orm}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.backend.authentication}}
+- **Authentication:** {{technicalArchitecture.technologyStack.backend.authentication}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.backend.testingFramework}}
+- **Testing:** {{technicalArchitecture.technologyStack.backend.testingFramework}}
+{{/if}}
+
+### Infrastructure
+- **Hosting:** {{technicalArchitecture.technologyStack.infrastructure.hosting}}
+{{#if technicalArchitecture.technologyStack.infrastructure.cicd}}
+- **CI/CD:** {{technicalArchitecture.technologyStack.infrastructure.cicd}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.infrastructure.monitoring}}
+- **Monitoring:** {{technicalArchitecture.technologyStack.infrastructure.monitoring}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.infrastructure.logging}}
+- **Logging:** {{technicalArchitecture.technologyStack.infrastructure.logging}}
+{{/if}}
+{{#if technicalArchitecture.technologyStack.infrastructure.containerization}}
+- **Containerization:** {{technicalArchitecture.technologyStack.infrastructure.containerization}}
+{{/if}}
+
+### Third-Party Services
+{{#if technicalArchitecture.technologyStack.thirdPartyServices}}
+{{#each technicalArchitecture.technologyStack.thirdPartyServices}}
+#### {{name}}
+**Purpose:** {{purpose}}  
+**Integration:** {{integration}}
+
+{{/each}}
+{{/if}}
+{{else}}
+*Technology stack selection pending architecture analysis.*
+{{/if}}
+
+## Data Architecture
+
+{{#if technicalArchitecture.databaseDesign}}
+### Database Type
+{{technicalArchitecture.databaseDesign.type}}
+
+### Schema Design
+
+{{#each technicalArchitecture.databaseDesign.schema}}
+#### {{tableName}}
+
+| Field | Type | Constraints |
+|-------|------|-------------|
+{{#each fields}}
+| {{name}} | {{type}} | {{#each constraints}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/each}}
+
+{{#if indexes}}
+**Indexes:** {{bulletList indexes}}
+{{/if}}
+
+{{/each}}
+
+### Relationships
+
+{{#each technicalArchitecture.databaseDesign.relationships}}
+- **{{from}} → {{to}}** ({{type}}): {{constraint}}
+{{/each}}
+
+### Performance Optimizations
+
+{{#each technicalArchitecture.databaseDesign.performanceOptimizations}}
+#### {{strategy}}
+**Target:** {{target}}  
+**Impact:** {{impact}}
+
+{{/each}}
+{{else}}
+*Database architecture will be designed during technical planning.*
+{{/if}}
+
+## API Architecture
+
+{{#if technicalArchitecture.apiDesign}}
+### API Style
+{{technicalArchitecture.apiDesign.apiStyle}}
+
+### Base URL
+```
+{{technicalArchitecture.apiDesign.baseUrl}}
+```
+
+### Authentication
+**Method:** {{technicalArchitecture.apiDesign.authentication.method}}  
+**Implementation:** {{technicalArchitecture.apiDesign.authentication.implementation}}
+
+### Rate Limiting
+{{#if technicalArchitecture.apiDesign.rateLimiting}}
+**Strategy:** {{technicalArchitecture.apiDesign.rateLimiting.strategy}}
+
+**Limits:**
+{{#each technicalArchitecture.apiDesign.rateLimiting.limits}}
+- {{@key}}: {{this}} requests/hour
+{{/each}}
+{{/if}}
+
+### Endpoints
+
+{{#each technicalArchitecture.apiDesign.endpoints}}
+#### `{{method}} {{path}}`
+{{description}}
+
+{{#if requestSchema}}
+**Request Schema:**
+```json
+{{json requestSchema}}
+```
+{{/if}}
+
+{{#if responseSchema}}
+**Response Schema:**
+```json
+{{json responseSchema}}
+```
+{{/if}}
+
+{{#if errorResponses}}
+**Error Responses:**
+{{#each errorResponses}}
+- `{{code}}`: {{description}}
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+### Documentation
+**Format:** {{technicalArchitecture.apiDesign.documentation.format}}  
+**Tooling:** {{technicalArchitecture.apiDesign.documentation.tooling}}
+{{else}}
+*API architecture will be designed during technical specification.*
+{{/if}}
+
+## System Data Flow
+
+{{#if technicalArchitecture.systemArchitecture.dataFlow}}
+{{#each technicalArchitecture.systemArchitecture.dataFlow}}
+### {{from}} → {{to}}
+**Data:** {{data}}  
+**Protocol:** {{protocol}}
+
+{{/each}}
+{{else}}
+*Data flow diagrams will be created during architecture design.*
+{{/if}}
+
+## Security Architecture
+
+{{#if technicalArchitecture.systemArchitecture.securityConsiderations}}
+{{#each technicalArchitecture.systemArchitecture.securityConsiderations}}
+### {{capitalize area}} Security
+**Concern:** {{concern}}  
+**Mitigation Strategy:** {{mitigation}}
+
+{{/each}}
+{{else}}
+*Security architecture will be detailed during technical planning.*
+{{/if}}
+
+## Scalability and Performance
+
+{{#if technicalArchitecture.systemArchitecture.scalabilityFactors}}
+{{#each technicalArchitecture.systemArchitecture.scalabilityFactors}}
+### {{component}} Scaling
+
+**Strategy:** {{scalingStrategy}}
+
+**Potential Bottlenecks:**
+{{bulletList bottlenecks}}
+
+**Solutions:**
+{{bulletList solutions}}
+
+---
+
+{{/each}}
+{{else}}
+*Scalability planning will be completed during architecture design.*
+{{/if}}
+
+## Implementation Plan
+
+{{#if technicalArchitecture.implementationPlan}}
+### Development Phases
+
+{{#each technicalArchitecture.implementationPlan.phases}}
+#### Phase {{phase}}: {{name}}
+**Duration:** {{duration}}  
+{{#if dependencies.length}}
+**Dependencies:** {{bulletList dependencies}}  
+{{/if}}
+
+**Deliverables:**
+{{#each deliverables}}
+- **{{name}}** ({{type}}): {{description}}
+{{/each}}
+
+**Key Risks:**
+{{#each risks}}
+- **{{risk}}** ({{impact}} impact): {{mitigation}}
+{{/each}}
+
+**Resource Requirements:**
+{{#each resources}}
+- **{{role}}** ({{allocation}}): {{#each skills}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+{{/each}}
+
+---
+
+{{/each}}
+
+### Project Timeline
+**Total Duration:** {{technicalArchitecture.implementationPlan.timeline.totalDuration}}
+
+**Major Milestones:**
+{{#each technicalArchitecture.implementationPlan.timeline.milestones}}
+- **{{name}}** - {{date}}
+  - {{#each deliverables}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+{{/each}}
+
+### Quality Gates
+{{#each technicalArchitecture.implementationPlan.qualityGates}}
+#### {{phase}} Quality Gate
+**Criteria:**
+{{bulletList criteria}}
+
+**Reviews Required:**
+{{bulletList reviews}}
+
+{{/each}}
+{{else}}
+*Implementation planning will be completed during final architecture phase.*
+{{/if}}
+
+## Monitoring and Maintenance
+
+### Application Monitoring
+- Performance metrics tracking
+- Error rate monitoring
+- User behavior analytics
+- System health dashboards
+
+### Infrastructure Monitoring
+- Server resource utilization
+- Network performance
+- Database performance
+- Security event monitoring
+
+### Maintenance Procedures
+- Regular security updates
+- Performance optimization reviews
+- Database maintenance and backup
+- Documentation updates
+
+## Deployment Architecture
+
+### Environments
+- **Development:** Local development and testing
+- **Staging:** Pre-production testing and validation
+- **Production:** Live system serving users
+
+### Deployment Strategy
+- Blue-green deployments for zero downtime
+- Automated testing in CI/CD pipeline
+- Infrastructure as code for consistency
+- Rollback procedures for failure recovery
+
+{{> footer}}

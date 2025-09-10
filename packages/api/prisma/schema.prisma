@@ -1,0 +1,198 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String            @id @default(uuid())
+  email            String            @unique
+  passwordHash     String            @map("password_hash")
+  subscriptionTier SubscriptionTier  @default(FREE) @map("subscription_tier")
+  stripeCustomerId String?           @map("stripe_customer_id")
+  preferences      Json              @default("{}")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  lastLogin        DateTime?         @map("last_login")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+
+  // Relations
+  planningSessions PlanningSession[]
+  documents        Document[]
+
+  @@index([email])
+  @@index([subscriptionTier])
+  @@map("users")
+}
+
+model PlanningSession {
+  id                 String        @id @default(uuid())
+  userId             String?       @map("user_id")
+  status             SessionStatus @default(ACTIVE)
+  currentAgent       AgentType     @default(ANALYST) @map("current_agent")
+  projectInput       String        @map("project_input")
+  sessionData        Json          @default("{}") @map("session_data")
+  progressPercentage Int           @default(0) @map("progress_percentage")
+  startedAt          DateTime      @default(now()) @map("started_at")
+  completedAt        DateTime?     @map("completed_at")
+  expiresAt          DateTime      @default(dbgenerated("(CURRENT_TIMESTAMP + INTERVAL '48 hours')")) @map("expires_at")
+  createdAt          DateTime      @default(now()) @map("created_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  user                User?                   @relation(fields: [userId], references: [id], onDelete: SetNull)
+  conversationMessages ConversationMessage[]
+  documents           Document[]
+  agentExecutions     AgentExecution[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([expiresAt])
+  @@map("planning_sessions")
+}
+
+model ConversationMessage {
+  id             String    @id @default(uuid())
+  sessionId      String    @map("session_id")
+  agentType      AgentType @map("agent_type")
+  content        String
+  metadata       Json      @default("{}")
+  sequenceNumber Int       @map("sequence_number")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  session PlanningSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, sequenceNumber])
+  @@index([sessionId])
+  @@map("conversation_messages")
+}
+
+model AgentExecution {
+  id              String        @id @default(uuid())
+  sessionId       String        @map("session_id")
+  agentType       AgentType     @map("agent_type")
+  status          ExecutionStatus @default(PENDING)
+  inputContext    Json          @default("{}") @map("input_context")
+  outputData      Json          @default("{}") @map("output_data")
+  llmProvider     LLMProvider?  @map("llm_provider")
+  tokenUsage      Int           @default(0) @map("token_usage")
+  executionTimeMs Int?          @map("execution_time_ms")
+  errorMessage    String?       @map("error_message")
+  startedAt       DateTime      @default(now()) @map("started_at")
+  completedAt     DateTime?     @map("completed_at")
+
+  // Relations
+  session     PlanningSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  llmRequests LLMRequest[]
+
+  @@index([sessionId])
+  @@index([status])
+  @@index([llmProvider])
+  @@map("agent_executions")
+}
+
+model Document {
+  id            String       @id @default(uuid())
+  sessionId     String       @map("session_id")
+  documentType  DocumentType @map("document_type")
+  title         String
+  content       String       @default("")
+  version       Int          @default(1)
+  status        DocumentStatus @default(DRAFT)
+  exportFormats Json         @default("[]") @map("export_formats")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  session PlanningSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  user    User?           @relation(fields: [userId], references: [id])
+  userId  String?         @map("user_id")
+
+  @@unique([sessionId, documentType, version])
+  @@index([sessionId])
+  @@index([documentType])
+  @@map("documents")
+}
+
+model LLMRequest {
+  id                String      @id @default(uuid())
+  agentExecutionId  String?     @map("agent_execution_id")
+  provider          LLMProvider
+  model             String
+  prompt            String
+  response          String?
+  tokenCountInput   Int         @default(0) @map("token_count_input")
+  tokenCountOutput  Int         @default(0) @map("token_count_output")
+  costUsd           Decimal     @default(0) @map("cost_usd") @db.Decimal(10, 6)
+  responseTimeMs    Int?        @map("response_time_ms")
+  status            RequestStatus @default(SUCCESS)
+  errorCode         String?     @map("error_code")
+  createdAt         DateTime    @default(now()) @map("created_at")
+
+  // Relations
+  agentExecution AgentExecution? @relation(fields: [agentExecutionId], references: [id], onDelete: SetNull)
+
+  @@index([provider])
+  @@index([createdAt])
+  @@index([agentExecutionId])
+  @@map("llm_requests")
+}
+
+// Enums
+enum SubscriptionTier {
+  FREE
+  EMAIL_CAPTURED
+  PREMIUM
+}
+
+enum SessionStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  FAILED
+}
+
+enum AgentType {
+  ANALYST
+  PM
+  UX_EXPERT
+  ARCHITECT
+  USER
+}
+
+enum ExecutionStatus {
+  PENDING
+  EXECUTING
+  COMPLETED
+  FAILED
+}
+
+enum LLMProvider {
+  OPENAI
+  ANTHROPIC
+}
+
+enum DocumentType {
+  PROJECT_BRIEF
+  PRD
+  ARCHITECTURE
+  USER_STORIES
+}
+
+enum DocumentStatus {
+  DRAFT
+  GENERATING
+  COMPLETED
+}
+
+enum RequestStatus {
+  SUCCESS
+  FAILED
+  TIMEOUT
+}

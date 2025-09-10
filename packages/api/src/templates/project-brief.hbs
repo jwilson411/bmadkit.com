@@ -1,0 +1,134 @@
+{{> header}}
+
+## Executive Summary
+
+{{#if businessRequirements.projectOverview}}
+{{businessRequirements.projectOverview}}
+{{else}}
+*Project overview will be generated based on business analysis results.*
+{{/if}}
+
+## Project Objectives
+
+{{#if businessRequirements.objectives}}
+{{bulletList businessRequirements.objectives}}
+{{else}}
+*Project objectives will be defined during the analyst phase.*
+{{/if}}
+
+## Target Audience
+
+{{#if businessRequirements.targetAudience}}
+**Primary Audience:** {{businessRequirements.targetAudience.primary}}
+
+**Secondary Audiences:**
+{{bulletList businessRequirements.targetAudience.secondary}}
+
+**Market Size:** {{capitalize businessRequirements.targetAudience.size}}
+{{else}}
+*Target audience analysis pending.*
+{{/if}}
+
+## Business Case
+
+{{#if businessRequirements.businessCase}}
+### Problem Statement
+{{businessRequirements.businessCase.problemStatement}}
+
+### Solution Approach
+{{businessRequirements.businessCase.solutionApproach}}
+
+### Expected Benefits
+{{bulletList businessRequirements.businessCase.expectedBenefits}}
+
+### Success Metrics
+{{bulletList businessRequirements.businessCase.successMetrics}}
+{{else}}
+*Business case will be developed during requirements analysis.*
+{{/if}}
+
+## Project Scope
+
+{{#if projectScope}}
+### Core Features
+{{featureTable projectScope.features}}
+
+### Out of Scope
+{{#if projectScope.outOfScope}}
+{{bulletList projectScope.outOfScope}}
+{{else}}
+*Scope boundaries to be defined.*
+{{/if}}
+
+### Constraints
+{{#if projectScope.constraints}}
+{{bulletList projectScope.constraints}}
+{{else}}
+*Project constraints to be identified.*
+{{/if}}
+{{else}}
+*Project scope will be defined during project management phase.*
+{{/if}}
+
+## Stakeholders
+
+{{#if stakeholders}}
+{{#each stakeholders}}
+**{{name}}** - {{role}}  
+*{{responsibilities}}*  
+Contact: {{email}}
+
+{{/each}}
+{{else}}
+*Stakeholder analysis in progress.*
+{{/if}}
+
+## Timeline and Milestones
+
+{{#if timeline}}
+**Project Duration:** {{timeline.totalDuration}}
+
+### Key Milestones
+{{#each timeline.milestones}}
+- **{{name}}** - {{date}}
+  - {{#each deliverables}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+{{/each}}
+{{else}}
+*Timeline will be established during project planning.*
+{{/if}}
+
+## Budget and Resources
+
+{{#if budget}}
+**Estimated Budget:** {{helpers.formatCurrency budget.total}}
+
+### Resource Requirements
+{{#each budget.resources}}
+- **{{role}}:** {{allocation}} ({{helpers.formatCurrency cost}})
+{{/each}}
+{{else}}
+*Budget analysis pending completion of technical architecture.*
+{{/if}}
+
+## Risk Assessment
+
+{{#if risks}}
+{{#each risks}}
+### {{capitalize impact}} Risk: {{title}}
+**Description:** {{description}}  
+**Mitigation:** {{mitigation}}
+
+{{/each}}
+{{else}}
+*Risk assessment will be completed during planning phase.*
+{{/if}}
+
+## Next Steps
+
+1. Complete business requirements analysis
+2. Define detailed project scope and features
+3. Develop user experience design
+4. Create technical architecture specification
+5. Begin implementation planning
+
+{{> footer}}

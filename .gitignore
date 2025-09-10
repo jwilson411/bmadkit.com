@@ -137,3 +137,12 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+# BMAD (local only)
+.bmad-core/
+.bmad-*/
+
+# JWT signing keys (security)
+keys/
+*.pem
+*.key
+*.crt

@@ -1,0 +1,816 @@
+{{> header}}
+
+# Implementation Roadmap
+{{#if customBranding}}
+*Strategic Development Plan for {{branding.companyName}}*
+{{/if}}
+
+**Project:** {{projectName}}  
+**Generated:** {{formatDate generatedAt}}  
+**Analysis Depth:** {{capitalize analysisDepth}}  
+**Planning Horizon:** {{implementationPlan.timeline.totalDuration}}
+
+---
+
+## Executive Summary
+
+This comprehensive implementation roadmap outlines the strategic development approach for **{{projectName}}**, providing detailed timeline, resource allocation, risk management, and milestone tracking. The plan is structured to deliver maximum value while minimizing risk through phased delivery and continuous validation.
+
+{{#if comprehensiveAnalysis}}
+### Key Strategic Decisions
+
+{{#each strategicDecisions}}
+#### {{category}}
+**Decision:** {{decision}}  
+**Business Impact:** {{businessImpact}}  
+**Technical Impact:** {{technicalImpact}}  
+**Resource Implications:** {{resourceImplications}}  
+**Risk Assessment:** {{riskAssessment}}
+
+---
+{{/each}}
+
+### Success Metrics
+
+| Metric | Target | Measurement Method | Reporting Frequency |
+|--------|--------|-------------------|-------------------|
+{{#each successMetrics}}
+| {{name}} | {{target}} | {{measurementMethod}} | {{reportingFrequency}} |
+{{/each}}
+{{/if}}
+
+## Development Phases Overview
+
+{{#if implementationPlan}}
+### Project Timeline
+
+**Total Duration:** {{implementationPlan.timeline.totalDuration}}  
+**Start Date:** {{formatDate implementationPlan.timeline.startDate}}  
+**Target Launch:** {{formatDate implementationPlan.timeline.launchDate}}
+
+#### Phase Summary
+
+| Phase | Duration | Team Size | Key Deliverables | Dependencies |
+|-------|----------|-----------|------------------|--------------|
+{{#each implementationPlan.phases}}
+| {{phase}} | {{duration}} | {{teamSize}} | {{#each deliverables}}{{name}}{{#unless @last}}, {{/unless}}{{/each}} | {{#if dependencies.length}}{{#each dependencies}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}{{else}}None{{/if}} |
+{{/each}}
+
+### Gantt Chart Overview
+
+```
+Project Timeline:
+{{ganttChart implementationPlan.timeline}}
+```
+
+{{#each implementationPlan.phases}}
+## Phase {{phase}}: {{name}}
+
+**Duration:** {{duration}}  
+**Start Date:** {{formatDate startDate}}  
+**End Date:** {{formatDate endDate}}  
+**Team Size:** {{teamSize}} developers
+
+### Phase Objectives
+
+{{description}}
+
+{{#if detailedAnalysis}}
+### Success Criteria
+
+{{bulletList successCriteria}}
+
+### Entry Criteria
+
+{{bulletList entryCriteria}}
+
+### Exit Criteria
+
+{{bulletList exitCriteria}}
+{{/if}}
+
+### Deliverables
+
+{{#each deliverables}}
+#### {{name}} ({{type}})
+
+**Description:** {{description}}  
+**Owner:** {{owner}}  
+**Effort Estimate:** {{effort}} person-days  
+{{#if detailedAnalysis}}
+**Complexity Score:** {{complexity}}/10  
+**Business Value:** {{businessValue}}/10  
+**Technical Risk:** {{technicalRisk}}/10  
+{{/if}}
+
+{{#if acceptance}}
+**Acceptance Criteria:**
+{{bulletList acceptance}}
+{{/if}}
+
+{{#if detailedAnalysis}}
+**Technical Requirements:**
+{{bulletList technicalRequirements}}
+
+**Testing Strategy:**
+- **Unit Testing:** {{testing.unit}}
+- **Integration Testing:** {{testing.integration}}
+- **User Acceptance Testing:** {{testing.uat}}
+- **Performance Testing:** {{testing.performance}}
+
+**Dependencies:**
+{{#if dependencies.length}}
+{{bulletList dependencies}}
+{{else}}
+*No specific dependencies*
+{{/if}}
+
+**Definition of Done:**
+{{bulletList definitionOfDone}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Quality Gates:**
+{{#each qualityGates}}
+- **{{gate}}:** {{criteria}} ({{reviewType}} review required)
+{{/each}}
+
+**Risk Mitigation:**
+{{#each riskMitigation}}
+- **{{risk}}:** {{mitigation}}
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+### Resource Allocation
+
+{{#each resources}}
+#### {{role}} ({{allocation}})
+
+**Required Skills:** {{#each skills}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}  
+**Responsibilities:**
+{{bulletList responsibilities}}  
+
+{{#if detailedAnalysis}}
+**Deliverables:**
+{{bulletList deliverables}}
+
+**Skill Development:**
+{{#if skillDevelopment.length}}
+{{bulletList skillDevelopment}}
+{{else}}
+*No additional skill development required*
+{{/if}}
+
+**Backup Resources:**
+{{#if backup.length}}
+{{bulletList backup}}
+{{else}}
+*No backup resources identified*
+{{/if}}
+{{/if}}
+
+{{/each}}
+
+### Phase Risks
+
+{{#each risks}}
+#### {{risk}} ({{impact}} Impact)
+
+**Probability:** {{probability}}  
+**Impact Assessment:** {{impactAssessment}}  
+**Mitigation Strategy:** {{mitigation}}  
+**Contingency Plan:** {{contingency}}  
+
+{{#if detailedAnalysis}}
+**Early Warning Indicators:**
+{{bulletList earlyWarnings}}
+
+**Risk Owner:** {{riskOwner}}  
+**Review Date:** {{formatDate reviewDate}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Cost of Mitigation:** ${{mitigationCost}}  
+**Cost of Contingency:** ${{contingencyCost}}  
+**Probability Reduction:** {{probabilityReduction}}%  
+**Impact Reduction:** {{impactReduction}}%
+{{/if}}
+
+---
+
+{{/each}}
+
+{{#if detailedAnalysis}}
+### Quality Assurance
+
+#### Testing Strategy
+
+{{#each qualityAssurance.testing}}
+##### {{type}} Testing
+
+**Objective:** {{objective}}  
+**Scope:** {{scope}}  
+**Tools:** {{#each tools}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}  
+**Coverage Target:** {{coverageTarget}}%
+
+**Test Cases:**
+{{#each testCases}}
+- **{{scenario}}:** {{description}}
+  - **Expected Result:** {{expectedResult}}
+  - **Priority:** {{priority}}
+{{/each}}
+
+{{/each}}
+
+#### Code Quality Standards
+
+**Code Review Process:**
+1. {{qualityAssurance.codeReview.process.step1}}
+2. {{qualityAssurance.codeReview.process.step2}}
+3. {{qualityAssurance.codeReview.process.step3}}
+
+**Quality Metrics:**
+{{#each qualityAssurance.metrics}}
+- **{{metric}}:** {{target}} ({{currentBaseline}} baseline)
+{{/each}}
+
+**Static Analysis:**
+- **Tools:** {{bulletList qualityAssurance.staticAnalysis.tools}}
+- **Rules:** {{bulletList qualityAssurance.staticAnalysis.rules}}
+- **Gate Criteria:** {{qualityAssurance.staticAnalysis.gateCriteria}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+### Performance & Monitoring
+
+#### Performance Targets
+
+{{#each performanceTargets}}
+##### {{metric}}
+
+**Target:** {{target}}  
+**Measurement:** {{measurement}}  
+**Monitoring:** {{monitoring}}  
+**Alert Threshold:** {{alertThreshold}}
+
+**Optimization Strategy:**
+{{bulletList optimizationStrategy}}
+
+**Load Testing:**
+- **Test Scenarios:** {{bulletList loadTesting.scenarios}}
+- **Expected Load:** {{loadTesting.expectedLoad}}
+- **Breaking Point:** {{loadTesting.breakingPoint}}
+
+{{/each}}
+
+#### Monitoring Implementation
+
+**Monitoring Stack:**
+{{#each monitoring.stack}}
+- **{{component}}:** {{tool}} - {{purpose}}
+{{/each}}
+
+**Key Metrics:**
+{{#each monitoring.metrics}}
+- **{{category}}:** {{bulletList metrics}}
+{{/each}}
+
+**Alerting Strategy:**
+{{#each monitoring.alerts}}
+- **{{severity}}:** {{condition}} → {{action}}
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+## Cross-Phase Considerations
+
+{{#if detailedAnalysis}}
+### Integration Points
+
+{{#each integrationPoints}}
+#### {{systemA}} ↔ {{systemB}}
+
+**Integration Type:** {{integrationType}}  
+**Protocol:** {{protocol}}  
+**Data Format:** {{dataFormat}}  
+**Frequency:** {{frequency}}
+
+**Testing Requirements:**
+{{bulletList testingRequirements}}
+
+**Error Handling:**
+- **Retry Strategy:** {{errorHandling.retryStrategy}}
+- **Timeout:** {{errorHandling.timeout}}
+- **Fallback:** {{errorHandling.fallback}}
+
+{{#if comprehensiveAnalysis}}
+**Performance Requirements:**
+- **Latency:** < {{performance.latency}}ms
+- **Throughput:** {{performance.throughput}} requests/second
+- **Availability:** {{performance.availability}}%
+
+**Security Considerations:**
+{{bulletList securityConsiderations}}
+{{/if}}
+
+---
+
+{{/each}}
+
+### Data Migration Strategy
+
+{{#each dataMigration}}
+#### {{source}} → {{destination}}
+
+**Migration Type:** {{migrationType}}  
+**Data Volume:** {{dataVolume}}  
+**Estimated Duration:** {{duration}}  
+**Downtime Required:** {{downtime}}
+
+**Migration Steps:**
+{{numberedList migrationSteps}}
+
+**Rollback Plan:**
+{{numberedList rollbackPlan}}
+
+**Validation Criteria:**
+{{bulletList validationCriteria}}
+
+{{#if comprehensiveAnalysis}}
+**Performance Impact:**
+- **System Load:** {{performanceImpact.systemLoad}}
+- **Network Utilization:** {{performanceImpact.networkUtilization}}
+- **Storage Requirements:** {{performanceImpact.storageRequirements}}
+
+**Risk Mitigation:**
+{{bulletList riskMitigation}}
+{{/if}}
+
+---
+
+{{/each}}
+{{/if}}
+
+## Resource Management
+
+### Team Structure
+
+{{#if comprehensiveAnalysis}}
+#### Organizational Chart
+
+```
+{{teamStructure.organizationalChart}}
+```
+
+#### Role Definitions
+
+{{#each teamStructure.roles}}
+##### {{title}}
+
+**Reporting To:** {{reportsTo}}  
+**Team Size:** {{teamSize}}  
+**Responsibilities:**
+{{bulletList responsibilities}}
+
+**Key Skills:**
+{{bulletList keySkills}}
+
+**Success Metrics:**
+{{bulletList successMetrics}}
+
+**Development Plan:**
+{{#if developmentPlan.length}}
+{{bulletList developmentPlan}}
+{{else}}
+*No specific development plan required*
+{{/if}}
+
+---
+
+{{/each}}
+{{/if}}
+
+### Resource Allocation Timeline
+
+| Phase | {{#each teamStructure.roles}}{{title}}{{#unless @last}} | {{/unless}}{{/each}} | Total |
+|-------|{{#each teamStructure.roles}}-----{{#unless @last}}|{{/unless}}{{/each}}|-------|
+{{#each implementationPlan.phases}}
+| {{name}} | {{#each ../teamStructure.roles}}{{#with (lookup ../../resourceAllocation @index)}}{{allocation}}{{/with}}{{#unless @last}} | {{/unless}}{{/each}} | {{totalResources}} |
+{{/each}}
+
+{{#if detailedAnalysis}}
+### Skill Development Plan
+
+{{#each skillDevelopment}}
+#### {{skill}}
+
+**Current Team Capability:** {{currentCapability}}/10  
+**Required Capability:** {{requiredCapability}}/10  
+**Gap:** {{gap}}
+
+**Training Plan:**
+{{#each trainingPlan}}
+- **{{method}}:** {{description}} ({{duration}} - ${{cost}})
+{{/each}}
+
+**Timeline:** {{timeline}}  
+**Budget:** ${{budget}}  
+**Success Metrics:** {{successMetrics}}
+
+---
+
+{{/each}}
+
+### External Dependencies
+
+{{#each externalDependencies}}
+#### {{vendor}} - {{service}}
+
+**Dependency Type:** {{type}}  
+**Criticality:** {{criticality}}  
+**SLA Requirements:** {{slaRequirements}}
+
+**Integration Timeline:**
+{{#each timeline}}
+- **{{milestone}}:** {{formatDate date}} - {{description}}
+{{/each}}
+
+**Risk Assessment:**
+- **Vendor Risk:** {{risks.vendor}}
+- **Technical Risk:** {{risks.technical}}
+- **Schedule Risk:** {{risks.schedule}}
+
+**Mitigation Strategies:**
+{{bulletList mitigationStrategies}}
+
+---
+
+{{/each}}
+{{/if}}
+
+## Risk Management
+
+### Risk Assessment Matrix
+
+| Risk Category | Probability | Impact | Severity | Owner | Mitigation Status |
+|---------------|-------------|---------|----------|--------|------------------|
+{{#each riskManagement.risks}}
+| {{category}} | {{probability}} | {{impact}} | {{severity}} | {{owner}} | {{mitigationStatus}} |
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Risk Response Strategies
+
+{{#each riskManagement.responseStrategies}}
+#### {{category}} Risks
+
+**Strategy:** {{strategy}}
+
+{{#each risks}}
+##### {{name}}
+
+**Response Type:** {{responseType}}  
+**Action Plan:**
+{{numberedList actionPlan}}
+
+**Budget Allocation:** ${{budgetAllocation}}  
+**Timeline:** {{timeline}}  
+**Success Criteria:** {{successCriteria}}
+
+**Monitoring:**
+- **KPIs:** {{bulletList monitoring.kpis}}
+- **Review Frequency:** {{monitoring.reviewFrequency}}
+- **Escalation Criteria:** {{monitoring.escalationCriteria}}
+
+---
+
+{{/each}}
+{{/each}}
+
+### Contingency Planning
+
+{{#each riskManagement.contingencyPlans}}
+#### {{scenario}}
+
+**Trigger Conditions:**
+{{bulletList triggerConditions}}
+
+**Response Plan:**
+{{numberedList responsePlan}}
+
+**Resource Requirements:**
+{{bulletList resourceRequirements}}
+
+**Decision Authority:** {{decisionAuthority}}  
+**Communication Plan:** {{communicationPlan}}
+
+**Recovery Objectives:**
+- **RTO (Recovery Time Objective):** {{rto}}
+- **RPO (Recovery Point Objective):** {{rpo}}
+
+---
+
+{{/each}}
+{{/if}}
+
+## Communication & Governance
+
+### Communication Plan
+
+{{#each communicationPlan.stakeholders}}
+#### {{group}}
+
+**Key Contacts:**
+{{#each contacts}}
+- **{{name}}:** {{role}} - {{contactInfo}}
+{{/each}}
+
+**Communication Frequency:** {{frequency}}  
+**Communication Method:** {{method}}  
+**Information Needs:** {{bulletList informationNeeds}}
+
+**Escalation Path:**
+{{numberedList escalationPath}}
+
+---
+
+{{/each}}
+
+{{#if detailedAnalysis}}
+### Reporting Structure
+
+#### Status Reporting
+
+**Report Types:**
+{{#each reporting.types}}
+- **{{type}}:** {{frequency}} - {{audience}}
+  - **Content:** {{bulletList content}}
+  - **Format:** {{format}}
+  - **Distribution:** {{distribution}}
+{{/each}}
+
+#### Key Performance Indicators (KPIs)
+
+{{#each reporting.kpis}}
+##### {{category}} KPIs
+
+{{#each metrics}}
+- **{{name}}:** {{calculation}}
+  - **Target:** {{target}}
+  - **Current:** {{current}}
+  - **Trend:** {{trend}}
+{{/each}}
+
+---
+
+{{/each}}
+
+### Decision Making Framework
+
+**Decision Levels:**
+{{#each governance.decisionLevels}}
+- **{{level}}:** {{authority}} - {{scope}}
+{{/each}}
+
+**Approval Process:**
+{{numberedList governance.approvalProcess}}
+
+**Change Control:**
+{{#each governance.changeControl}}
+- **{{category}} Changes:** {{approver}} - {{process}}
+{{/each}}
+{{/if}}
+
+## Budget & Financial Management
+
+{{#if comprehensiveAnalysis}}
+### Project Budget Breakdown
+
+| Category | Q1 | Q2 | Q3 | Q4 | Total |
+|----------|----|----|----|----|-------|
+{{#each budget.categories}}
+| {{category}} | ${{q1}} | ${{q2}} | ${{q3}} | ${{q4}} | ${{total}} |
+{{/each}}
+| **Total** | **${{budget.totals.q1}}** | **${{budget.totals.q2}}** | **${{budget.totals.q3}}** | **${{budget.totals.q4}}** | **${{budget.totals.total}}** |
+
+### Cost Management
+
+**Budget Tracking:**
+- **Burn Rate:** ${{budget.burnRate}} per week
+- **Budget Utilization:** {{budget.utilization}}%
+- **Forecasted Completion:** {{budget.forecastedCompletion}}
+
+**Cost Control Measures:**
+{{bulletList budget.costControlMeasures}}
+
+**Financial Milestones:**
+{{#each budget.milestones}}
+- **{{milestone}}:** ${{amount}} by {{formatDate date}}
+{{/each}}
+
+### ROI Analysis
+
+**Investment Summary:**
+- **Total Investment:** ${{roi.totalInvestment}}
+- **Expected Revenue (Year 1):** ${{roi.expectedRevenue}}
+- **Break-even Point:** {{roi.breakEvenPoint}}
+
+**Value Realization:**
+{{#each roi.valueRealization}}
+- **{{benefit}}:** ${{value}} ({{timeframe}})
+{{/each}}
+{{/if}}
+
+## Quality Assurance & Testing
+
+### Testing Strategy Overview
+
+{{#each testing.strategies}}
+#### {{type}} Testing
+
+**Objective:** {{objective}}  
+**Scope:** {{scope}}  
+**Timeline:** {{timeline}}  
+**Resources:** {{resources}}
+
+**Test Approach:**
+{{bulletList approach}}
+
+**Success Criteria:**
+{{bulletList successCriteria}}
+
+{{#if detailedAnalysis}}
+**Test Environment Requirements:**
+{{bulletList environmentRequirements}}
+
+**Test Data Requirements:**
+{{bulletList dataRequirements}}
+
+**Automation Strategy:**
+- **Automation Coverage:** {{automation.coverage}}%
+- **Tools:** {{bulletList automation.tools}}
+- **Maintenance:** {{automation.maintenance}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Quality Gates
+
+{{#each testing.qualityGates}}
+#### {{phase}} Quality Gate
+
+**Gate Criteria:**
+{{bulletList criteria}}
+
+**Approval Authority:** {{approvalAuthority}}  
+**Review Process:**
+{{numberedList reviewProcess}}
+
+**Exit Criteria:**
+{{bulletList exitCriteria}}
+
+**Escalation Process:**
+{{bulletList escalationProcess}}
+
+---
+
+{{/each}}
+{{/if}}
+
+## Deployment & Go-Live
+
+### Deployment Strategy
+
+**Deployment Approach:** {{deployment.approach}}  
+**Rollback Strategy:** {{deployment.rollbackStrategy}}  
+**Go-Live Date:** {{formatDate deployment.goLiveDate}}
+
+{{#if detailedAnalysis}}
+### Pre-Deployment Checklist
+
+{{#each deployment.preDeploymentChecklist}}
+#### {{category}}
+
+{{#each items}}
+- [ ] {{task}} - {{owner}} - {{deadline}}
+{{/each}}
+
+---
+
+{{/each}}
+
+### Go-Live Plan
+
+**Phase 1: Soft Launch**
+- **Duration:** {{deployment.phases.softLaunch.duration}}
+- **User Group:** {{deployment.phases.softLaunch.userGroup}}
+- **Success Criteria:** {{bulletList deployment.phases.softLaunch.successCriteria}}
+
+**Phase 2: Full Launch**
+- **Duration:** {{deployment.phases.fullLaunch.duration}}
+- **User Group:** {{deployment.phases.fullLaunch.userGroup}}
+- **Success Criteria:** {{bulletList deployment.phases.fullLaunch.successCriteria}}
+
+### Post-Deployment Support
+
+**Support Model:** {{deployment.support.model}}  
+**Support Team:** {{deployment.support.team}}  
+**Response Times:**
+{{#each deployment.support.responseTimes}}
+- **{{priority}}:** {{responseTime}}
+{{/each}}
+
+**Knowledge Transfer:**
+{{bulletList deployment.support.knowledgeTransfer}}
+{{/if}}
+
+## Success Metrics & Monitoring
+
+### Project Success Criteria
+
+{{#each successCriteria}}
+#### {{category}}
+
+{{#each metrics}}
+- **{{name}}:** {{target}}
+  - **Measurement Method:** {{measurementMethod}}
+  - **Frequency:** {{frequency}}
+  - **Owner:** {{owner}}
+{{/each}}
+
+---
+
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Business Impact Measurement
+
+**Key Business Metrics:**
+{{#each businessImpact.metrics}}
+- **{{metric}}:** Baseline {{baseline}} → Target {{target}} ({{improvement}} improvement)
+{{/each}}
+
+**Value Realization Timeline:**
+{{#each businessImpact.timeline}}
+- **{{milestone}}:** {{formatDate date}} - {{expectedValue}}
+{{/each}}
+
+### Lessons Learned Process
+
+**Review Schedule:**
+{{bulletList lessonsLearned.reviewSchedule}}
+
+**Documentation Process:**
+{{numberedList lessonsLearned.documentationProcess}}
+
+**Knowledge Sharing:**
+{{bulletList lessonsLearned.knowledgeSharing}}
+{{/if}}
+
+## Conclusion
+
+This implementation roadmap provides a comprehensive guide for delivering **{{projectName}}** successfully. The plan emphasizes:
+
+- **Phased Delivery:** Minimizing risk through incremental value delivery
+- **Quality Focus:** Ensuring high-quality outcomes through rigorous testing and quality gates
+- **Risk Management:** Proactive identification and mitigation of project risks
+- **Resource Optimization:** Efficient allocation and development of team capabilities
+- **Stakeholder Alignment:** Clear communication and governance structures
+
+{{#if comprehensiveAnalysis}}
+### Critical Success Factors
+
+1. **Leadership Commitment:** Strong executive sponsorship and decision-making authority
+2. **Team Capabilities:** Right skills and experience in the delivery team
+3. **Technical Foundation:** Solid architecture and technology choices
+4. **Stakeholder Engagement:** Active involvement and feedback from key stakeholders
+5. **Quality Focus:** Rigorous testing and quality assurance throughout delivery
+6. **Risk Management:** Proactive identification and mitigation of project risks
+
+### Immediate Next Steps
+
+1. **Stakeholder Review:** Present roadmap to key stakeholders for approval
+2. **Team Assembly:** Recruit and onboard core delivery team
+3. **Environment Setup:** Prepare development and testing environments
+4. **Vendor Negotiations:** Finalize agreements with key technology vendors
+5. **Detailed Planning:** Break down Phase 1 deliverables into detailed tasks
+6. **Risk Assessment:** Complete detailed risk analysis and mitigation planning
+{{/if}}
+
+{{#if customBranding}}
+---
+
+*This implementation roadmap was strategically developed for {{branding.companyName}} to ensure successful project delivery while maximizing business value and minimizing risk.*
+{{/if}}
+
+{{> footer}}

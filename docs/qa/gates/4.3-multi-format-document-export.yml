@@ -1,0 +1,68 @@
+schema: 1
+story: '4.3'
+story_title: 'Multi-format Document Export'
+gate: CONCERNS
+status_reason: 'Document generation complexity with performance and template security considerations requiring optimization and validation strategies'
+reviewer: 'Quinn (Test Architect)'
+updated: '2025-09-08T15:30:00Z'
+
+top_issues:
+  - severity: medium
+    description: 'PDF generation with Puppeteer requires careful memory management and timeout handling'
+    suggested_owner: dev
+  - severity: medium
+    description: 'Custom template system using Handlebars needs comprehensive security validation to prevent injection attacks'
+    suggested_owner: dev
+  - severity: medium
+    description: 'Batch export processing could overwhelm system resources without proper queue management'
+    suggested_owner: dev
+  - severity: low
+    description: 'Export quality validation needed to ensure consistent formatting across all supported formats'
+    suggested_owner: dev
+
+waiver: { active: false }
+
+# Extended fields:
+quality_score: 75 # Good technical approach with performance and security considerations requiring attention
+expires: '2025-09-22T15:30:00Z' # 2 weeks from review
+
+evidence:
+  tests_reviewed: 0 # Pre-implementation - quality assurance testing strategy defined
+  risks_identified: 4 # Performance and template security risks identified
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7] # All AC numbers have implementation requirements defined
+    ac_gaps: [] # No coverage gaps, but performance and security validation critical
+
+nfr_validation:
+  security:
+    status: CONCERNS
+    notes: 'Custom template system requires strict validation and sandboxing to prevent injection attacks'
+  performance:
+    status: CONCERNS
+    notes: 'Document generation performance with Puppeteer and batch processing requires optimization and resource management'
+  reliability:
+    status: PASS
+    notes: 'Good separation of concerns with proper error handling and export history management'
+  maintainability:
+    status: PASS
+    notes: 'Clear architecture with comprehensive testing strategy and format-specific processing'
+
+recommendations:
+  immediate:
+    - action: 'Implement export generation performance monitoring with timeout and memory management'
+      refs: ['packages/api/src/services/export-processor.ts', 'packages/api/src/services/pdf-generator.ts']
+    - action: 'Create comprehensive template security validation and input sanitization'
+      refs: ['packages/api/src/templates/custom/', 'packages/api/src/utils/export-validator.ts']
+    - action: 'Implement batch export queue management with resource limits and progress tracking'
+      refs: ['packages/api/src/services/export-processor.ts']
+    - action: 'Add export quality validation framework for all supported formats'
+      refs: ['packages/api/src/utils/document-formatter.ts']
+  future:
+    - action: 'Create template preview and validation tools for custom templates'
+      refs: ['packages/api/src/templates/custom/']
+    - action: 'Implement export format compatibility testing with target applications'
+      refs: ['packages/api/test/integration/']
+    - action: 'Add comprehensive export analytics and usage tracking'
+      refs: ['packages/api/src/models/export-history.ts']
+    - action: 'Create export history cleanup and storage management policies'
+      refs: ['packages/api/src/services/export-processor.ts']

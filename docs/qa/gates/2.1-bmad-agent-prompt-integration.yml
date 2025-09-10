@@ -1,0 +1,66 @@
+schema: 1
+story: "2.1"
+story_title: "BMAD Agent Prompt Integration"
+gate: FAIL
+status_reason: "No implementation code exists - story is in Draft phase rather than ready for QA review"
+reviewer: "Quinn (Test Architect)"
+updated: "2025-09-08T00:00:00Z"
+
+waiver: { active: false }
+
+top_issues:
+  - id: "IMPL-001"
+    severity: high
+    finding: "No implementation files exist despite comprehensive story requirements"
+    suggested_action: "Complete implementation of all 7 acceptance criteria before requesting QA review"
+  - id: "SEC-001"
+    severity: high
+    finding: "Security risks not addressed in prompt template engine requirements"
+    suggested_action: "Add prompt injection protection and template engine security specifications"
+  - id: "ARCH-001"
+    severity: medium
+    finding: "Performance considerations for template caching and concurrent loading not specified"
+    suggested_action: "Define caching strategy and scalability requirements"
+
+risk_summary:
+  totals: { critical: 0, high: 2, medium: 1, low: 0 }
+  recommendations:
+    must_fix:
+      - "Complete story implementation before QA review"
+      - "Address security specifications for prompt template engine"
+    monitor:
+      - "Performance requirements for agent prompt loading"
+
+quality_score: 40
+expires: "2025-09-22T00:00:00Z"
+
+evidence:
+  tests_reviewed: 0
+  risks_identified: 3
+  trace:
+    ac_covered: []
+    ac_gaps: [1, 2, 3, 4, 5, 6, 7]
+
+nfr_validation:
+  security:
+    status: FAIL
+    notes: "Prompt injection vulnerabilities and template security not addressed"
+  performance:
+    status: CONCERNS
+    notes: "Template caching and concurrent loading strategy undefined"
+  reliability:
+    status: CONCERNS
+    notes: "Error handling requirements lack implementation specifics"
+  maintainability:
+    status: CONCERNS
+    notes: "No code exists to assess maintainability patterns"
+
+recommendations:
+  immediate:
+    - action: "Implement all acceptance criteria with actual code"
+      refs: ["packages/api/src/services/", "packages/api/src/models/"]
+    - action: "Add security specifications for template engine"
+      refs: ["Story requirements section"]
+  future:
+    - action: "Consider agent prompt performance benchmarking"
+      refs: ["Template caching implementation"]

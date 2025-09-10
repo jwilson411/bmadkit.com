@@ -1,0 +1,261 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    # Warm-up phase
+    - duration: 30
+      arrivalRate: 10
+      name: "Warm-up"
+    # Ramp-up phase
+    - duration: 120
+      arrivalRate: 50
+      rampTo: 250
+      name: "Ramp-up"
+    # Sustained load phase
+    - duration: 300
+      arrivalRate: 250
+      name: "Sustained Load"
+    # Peak load phase
+    - duration: 180
+      arrivalRate: 500
+      rampTo: 1000
+      name: "Peak Load"
+    # Stress test phase
+    - duration: 60
+      arrivalRate: 1200
+      name: "Stress Test"
+    # Cool-down phase
+    - duration: 60
+      arrivalRate: 100
+      name: "Cool-down"
+  
+  # WebSocket configuration for real-time features
+  ws:
+    connect:
+      timeout: 10000
+    subprotocols:
+      - 'planning-session-protocol'
+  
+  # HTTP configuration
+  http:
+    timeout: 30
+    pool: 50
+    extendedMetrics: true
+  
+  # Custom metrics and reporting
+  metrics:
+    - name: 'session_creation_time'
+      unit: 'milliseconds'
+    - name: 'llm_response_time'
+      unit: 'milliseconds'
+    - name: 'database_query_time'
+      unit: 'milliseconds'
+    - name: 'redis_operation_time'
+      unit: 'milliseconds'
+  
+  # Load testing variables
+  variables:
+    userTypes:
+      - "business_analyst"
+      - "project_manager"
+      - "consultant"
+      - "enterprise_user"
+    sessionTypes:
+      - "strategic_planning"
+      - "requirements_analysis"
+      - "risk_assessment"
+      - "stakeholder_mapping"
+    
+  # Artillery plugins
+  plugins:
+    metrics-by-endpoint:
+      useOnlyRequestNames: true
+    publish-metrics:
+      - type: 'statsd'
+        host: 'localhost'
+        port: 8125
+        prefix: 'bmad.loadtest'
+
+# Load test scenarios
+scenarios:
+  # Core planning session workflow
+  - name: "Complete Planning Session"
+    weight: 60
+    engine: http
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "load-test-{{ $randomString() }}@example.com"
+            password: "LoadTest123!"
+          capture:
+            - json: "$.token"
+              as: "authToken"
+      
+      - post:
+          url: "/api/sessions"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          json:
+            title: "Load Test Session {{ $randomInt(1, 10000) }}"
+            type: "{{ $randomItem(sessionTypes) }}"
+            methodology: "agile"
+          capture:
+            - json: "$.sessionId"
+              as: "sessionId"
+      
+      - think: 2
+      
+      # WebSocket connection for real-time features
+      - engine: ws
+        connect: "ws://localhost:3000/api/sessions/{{ sessionId }}/ws"
+        headers:
+          Authorization: "Bearer {{ authToken }}"
+        subprotocols:
+          - 'planning-session-protocol'
+      
+      # Simulate planning activities
+      - loop:
+          count: 5
+          over:
+            - emit:
+                event: "planning_update"
+                data:
+                  sessionId: "{{ sessionId }}"
+                  content: "Load test planning content {{ $randomString() }}"
+                  timestamp: "{{ $timestamp() }}"
+            
+            - think: 3
+            
+            - post:
+                url: "/api/sessions/{{ sessionId }}/llm-query"
+                headers:
+                  Authorization: "Bearer {{ authToken }}"
+                json:
+                  query: "Analyze this business scenario: {{ $randomString() }}"
+                  context: "strategic_planning"
+      
+      # Export simulation
+      - post:
+          url: "/api/export/single"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+          json:
+            sessionId: "{{ sessionId }}"
+            format: "markdown"
+      
+      - think: 1
+      
+      # Session cleanup
+      - delete:
+          url: "/api/sessions/{{ sessionId }}"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+
+  # Concurrent session management
+  - name: "Multi-Session Management"
+    weight: 25
+    engine: http
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "multi-session-{{ $randomString() }}@example.com"
+            password: "LoadTest123!"
+          capture:
+            - json: "$.token"
+              as: "authToken"
+      
+      # Create multiple sessions
+      - loop:
+          count: 3
+          over:
+            - post:
+                url: "/api/sessions"
+                headers:
+                  Authorization: "Bearer {{ authToken }}"
+                json:
+                  title: "Multi Session {{ $randomInt(1, 1000) }}"
+                  type: "{{ $randomItem(sessionTypes) }}"
+                capture:
+                  - json: "$.sessionId"
+                    as: "sessionId{{ $loopElement }}"
+      
+      # Concurrent operations on multiple sessions
+      - parallel:
+          - post:
+              url: "/api/sessions/{{ sessionId0 }}/llm-query"
+              headers:
+                Authorization: "Bearer {{ authToken }}"
+              json:
+                query: "Business analysis query"
+          
+          - post:
+              url: "/api/sessions/{{ sessionId1 }}/llm-query"
+              headers:
+                Authorization: "Bearer {{ authToken }}"
+              json:
+                query: "Risk assessment query"
+          
+          - post:
+              url: "/api/sessions/{{ sessionId2 }}/llm-query"
+              headers:
+                Authorization: "Bearer {{ authToken }}"
+              json:
+                query: "Strategic planning query"
+
+  # Database stress testing
+  - name: "Database Intensive Operations"
+    weight: 10
+    engine: http
+    flow:
+      - post:
+          url: "/api/auth/login"
+          json:
+            email: "db-stress-{{ $randomString() }}@example.com"
+            password: "LoadTest123!"
+          capture:
+            - json: "$.token"
+              as: "authToken"
+      
+      # Heavy read operations
+      - get:
+          url: "/api/sessions?limit=50&includeArchived=true"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+      
+      - get:
+          url: "/api/export/history?limit=100"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+      
+      - get:
+          url: "/api/analytics/dashboard"
+          headers:
+            Authorization: "Bearer {{ authToken }}"
+
+  # API endpoint stress testing
+  - name: "API Stress Testing"
+    weight: 5
+    engine: http
+    flow:
+      - get:
+          url: "/api/health"
+      
+      - get:
+          url: "/api/features"
+      
+      - post:
+          url: "/api/auth/register"
+          json:
+            email: "stress-test-{{ $randomString() }}@example.com"
+            password: "StressTest123!"
+            name: "Stress Test User"
+
+# Performance thresholds and assertions
+expectations:
+  - http.response_time.p95: 3000  # 95th percentile under 3 seconds
+  - http.response_time.p99: 5000  # 99th percentile under 5 seconds
+  - http.request_rate: 800        # Minimum 800 requests per second
+  - ws.connect_rate: 100          # Minimum 100 WebSocket connections per second
+  - http.codes.200: 95            # 95% success rate minimum
+  - http.codes.500: 1             # Maximum 1% server errors

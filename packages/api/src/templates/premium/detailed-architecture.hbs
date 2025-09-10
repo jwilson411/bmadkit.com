@@ -1,0 +1,986 @@
+{{> header}}
+
+# Detailed Technical Architecture
+{{#if customBranding}}
+*Prepared for {{branding.companyName}}*
+{{/if}}
+
+**Generated:** {{formatDate generatedAt}}  
+**Analysis Depth:** {{capitalize analysisDepth}}  
+**Complexity Score:** {{analytics.complexityScore}}
+
+---
+
+## Executive Summary
+
+This document provides a comprehensive technical architecture for **{{projectName}}**, designed with enterprise-grade scalability, security, and performance considerations. The architecture incorporates modern best practices, microservices patterns, and cloud-native technologies.
+
+{{#if comprehensiveAnalysis}}
+### Key Architectural Decisions
+
+{{#each architecturalDecisions}}
+#### {{title}}
+**Decision:** {{decision}}  
+**Rationale:** {{rationale}}  
+**Impact:** {{impact}}  
+**Alternatives Considered:** {{bulletList alternatives}}  
+**Risk Mitigation:** {{mitigation}}
+
+---
+{{/each}}
+{{/if}}
+
+## Architecture Overview
+
+{{#if technicalArchitecture}}
+### System Architecture Pattern
+**Pattern:** {{technicalArchitecture.systemArchitecture.architecturalPattern}}
+
+{{#if detailedAnalysis}}
+**Benefits:**
+- Improved scalability through distributed components
+- Enhanced fault tolerance and resilience
+- Better separation of concerns
+- Easier maintenance and testing
+
+**Trade-offs:**
+- Increased system complexity
+- Network latency considerations
+- Distributed system challenges (CAP theorem)
+- Operational overhead
+{{/if}}
+
+### High-Level System Components
+
+{{#each technicalArchitecture.systemArchitecture.components}}
+#### {{name}} ({{type}})
+
+**Purpose:** {{purpose}}
+
+**Responsibilities:**
+{{bulletList responsibilities}}
+
+**Service Interfaces:**
+{{#each interfaces}}
+- **{{name}}** ({{protocol}}): {{description}}
+{{/each}}
+
+**Dependencies:**
+{{#if dependencies.length}}
+{{bulletList dependencies}}
+{{else}}
+*No external dependencies*
+{{/if}}
+
+{{#if detailedAnalysis}}
+**Scalability Characteristics:**
+- **Horizontal Scaling:** {{scalability.horizontal}}
+- **Vertical Scaling:** {{scalability.vertical}}
+- **Performance Bottlenecks:** {{bulletList scalability.bottlenecks}}
+- **Monitoring Points:** {{bulletList scalability.metrics}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Fault Tolerance:**
+- **Failure Modes:** {{bulletList faultTolerance.failureModes}}
+- **Recovery Strategies:** {{bulletList faultTolerance.recovery}}
+- **Circuit Breakers:** {{faultTolerance.circuitBreakers}}
+- **Timeout Policies:** {{faultTolerance.timeouts}}
+
+**Resource Requirements:**
+- **CPU:** {{resources.cpu}}
+- **Memory:** {{resources.memory}}
+- **Storage:** {{resources.storage}}
+- **Network:** {{resources.network}}
+{{/if}}
+
+---
+
+{{/each}}
+{{else}}
+*Technical architecture design will be completed during the architect phase.*
+{{/if}}
+
+## Technology Stack Analysis
+
+{{#if technicalArchitecture.technologyStack}}
+
+### Frontend Architecture
+
+**Framework:** {{technicalArchitecture.technologyStack.frontend.framework}}  
+**Language:** {{technicalArchitecture.technologyStack.frontend.language}}
+
+{{#if detailedAnalysis}}
+#### Frontend Technology Justification
+
+**{{technicalArchitecture.technologyStack.frontend.framework}} Selection:**
+- **Performance:** Excellent runtime performance with virtual DOM
+- **Ecosystem:** Rich ecosystem with extensive library support
+- **Developer Experience:** Strong tooling and development workflow
+- **Scalability:** Component-based architecture supports large applications
+- **Community:** Large, active community with extensive resources
+
+**State Management:** {{technicalArchitecture.technologyStack.frontend.stateManagement}}
+- **Predictable State:** Centralized state management
+- **Debugging:** Excellent debugging tools and time-travel debugging
+- **Testability:** Easier unit testing with pure functions
+{{/if}}
+
+{{#if technicalArchitecture.technologyStack.frontend.buildTool}}
+**Build System:** {{technicalArchitecture.technologyStack.frontend.buildTool}}
+{{#if detailedAnalysis}}
+- **Bundle Optimization:** Tree shaking and code splitting
+- **Development Experience:** Hot module replacement and fast refresh
+- **Asset Optimization:** Image optimization and compression
+- **Performance:** Production builds optimized for performance
+{{/if}}
+{{/if}}
+
+### Backend Architecture
+
+**Framework:** {{technicalArchitecture.technologyStack.backend.framework}}  
+**Language:** {{technicalArchitecture.technologyStack.backend.language}}  
+**Runtime:** {{technicalArchitecture.technologyStack.backend.runtime}}
+
+{{#if detailedAnalysis}}
+#### Backend Technology Analysis
+
+**{{technicalArchitecture.technologyStack.backend.framework}} Benefits:**
+- **Performance:** High-performance, non-blocking I/O
+- **Scalability:** Event-driven architecture supports high concurrency
+- **Ecosystem:** Extensive NPM ecosystem
+- **Developer Productivity:** JavaScript everywhere reduces context switching
+
+**Database Strategy:**
+{{#each technicalArchitecture.technologyStack.backend.databases}}
+- **{{name}}** ({{type}}): {{purpose}}
+  - **Performance Characteristics:** {{performance}}
+  - **Scalability Model:** {{scalability}}
+  - **Consistency Model:** {{consistency}}
+{{/each}}
+{{/if}}
+
+### Infrastructure Architecture
+
+**Hosting Platform:** {{technicalArchitecture.technologyStack.infrastructure.hosting}}
+
+{{#if detailedAnalysis}}
+#### Cloud Architecture Design
+
+**Multi-Region Deployment:**
+{{#each technicalArchitecture.infrastructure.regions}}
+- **{{region}}** ({{type}}): {{#each services}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+{{/each}}
+
+**Service Mesh:**
+- **Technology:** {{technicalArchitecture.infrastructure.serviceMesh.technology}}
+- **Benefits:** {{bulletList technicalArchitecture.infrastructure.serviceMesh.benefits}}
+- **Configuration:** {{technicalArchitecture.infrastructure.serviceMesh.configuration}}
+
+**Container Orchestration:**
+- **Platform:** {{technicalArchitecture.technologyStack.infrastructure.containerization}}
+- **Cluster Configuration:** {{technicalArchitecture.infrastructure.kubernetes.configuration}}
+- **Auto-scaling Policies:** {{bulletList technicalArchitecture.infrastructure.kubernetes.autoscaling}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+#### Infrastructure Cost Analysis
+
+**Monthly Infrastructure Costs (Estimated):**
+
+| Service Category | Development | Staging | Production | Total |
+|------------------|-------------|---------|-------------|-------|
+{{#each technicalArchitecture.infrastructure.costBreakdown}}
+| {{category}} | ${{development}} | ${{staging}} | ${{production}} | ${{total}} |
+{{/each}}
+| **Total** | **${{technicalArchitecture.infrastructure.totalCosts.development}}** | **${{technicalArchitecture.infrastructure.totalCosts.staging}}** | **${{technicalArchitecture.infrastructure.totalCosts.production}}** | **${{technicalArchitecture.infrastructure.totalCosts.total}}** |
+
+**Cost Optimization Strategies:**
+{{bulletList technicalArchitecture.infrastructure.costOptimization}}
+{{/if}}
+
+{{/if}}
+
+## Data Architecture & Design
+
+{{#if technicalArchitecture.databaseDesign}}
+### Database Architecture Strategy
+
+**Primary Database:** {{technicalArchitecture.databaseDesign.type}}  
+**Architecture Pattern:** {{technicalArchitecture.databaseDesign.pattern}}
+
+{{#if detailedAnalysis}}
+#### Data Modeling Strategy
+
+**Entity Relationship Design:**
+{{#each technicalArchitecture.databaseDesign.entities}}
+##### {{name}} Entity
+
+**Purpose:** {{purpose}}
+
+| Attribute | Type | Constraints | Description |
+|-----------|------|-------------|-------------|
+{{#each attributes}}
+| {{name}} | {{type}} | {{#each constraints}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} | {{description}} |
+{{/each}}
+
+**Relationships:**
+{{#each relationships}}
+- **{{relationshipType}}** with {{relatedEntity}}: {{description}}
+{{/each}}
+
+**Indexes:**
+{{bulletList indexes}}
+
+{{/each}}
+{{/if}}
+
+### Data Flow Architecture
+
+{{#each technicalArchitecture.systemArchitecture.dataFlow}}
+#### {{from}} → {{to}}
+
+**Data Payload:** {{data}}  
+**Protocol:** {{protocol}}  
+**Volume:** {{volume}} requests/second  
+**Latency SLA:** {{latencySLA}}ms
+
+{{#if detailedAnalysis}}
+**Data Transformation:**
+{{#if transformation}}
+{{bulletList transformation}}
+{{else}}
+*No transformation required*
+{{/if}}
+
+**Error Handling:**
+- **Retry Strategy:** {{errorHandling.retryStrategy}}
+- **Circuit Breaker:** {{errorHandling.circuitBreaker}}
+- **Dead Letter Queue:** {{errorHandling.deadLetterQueue}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Monitoring & Alerting:**
+- **Success Rate:** > {{sla.successRate}}%
+- **Response Time:** < {{sla.responseTime}}ms
+- **Throughput:** {{sla.throughput}} requests/second
+- **Alert Conditions:** {{bulletList sla.alertConditions}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Data Privacy & Compliance
+
+#### GDPR Compliance Strategy
+
+**Data Classification:**
+{{#each technicalArchitecture.dataPrivacy.classification}}
+- **{{category}}:** {{description}}
+  - **Retention Period:** {{retentionPeriod}}
+  - **Access Controls:** {{bulletList accessControls}}
+  - **Encryption:** {{encryption}}
+{{/each}}
+
+**Data Subject Rights:**
+- **Right to Access:** {{technicalArchitecture.dataPrivacy.rightToAccess}}
+- **Right to Rectification:** {{technicalArchitecture.dataPrivacy.rightToRectification}}
+- **Right to Erasure:** {{technicalArchitecture.dataPrivacy.rightToErasure}}
+- **Data Portability:** {{technicalArchitecture.dataPrivacy.dataPortability}}
+
+#### Data Backup & Recovery
+
+**Backup Strategy:**
+- **Frequency:** {{technicalArchitecture.backup.frequency}}
+- **Retention:** {{technicalArchitecture.backup.retention}}
+- **Geographic Distribution:** {{bulletList technicalArchitecture.backup.locations}}
+- **Testing Schedule:** {{technicalArchitecture.backup.testingSchedule}}
+
+**Recovery Procedures:**
+- **RTO (Recovery Time Objective):** {{technicalArchitecture.backup.rto}}
+- **RPO (Recovery Point Objective):** {{technicalArchitecture.backup.rpo}}
+- **Disaster Recovery Plan:** {{technicalArchitecture.backup.drPlan}}
+{{/if}}
+
+{{/if}}
+
+## API Architecture & Design
+
+{{#if technicalArchitecture.apiDesign}}
+### API Strategy
+
+**Architecture Style:** {{technicalArchitecture.apiDesign.apiStyle}}  
+**Base URL:** {{technicalArchitecture.apiDesign.baseUrl}}
+
+{{#if detailedAnalysis}}
+#### API Design Principles
+
+**RESTful Design:**
+- **Resource-Based URLs:** Clear, hierarchical resource naming
+- **HTTP Methods:** Proper use of GET, POST, PUT, PATCH, DELETE
+- **Stateless:** Each request contains all necessary information
+- **Cacheable:** Responses explicitly indicate cacheability
+
+**GraphQL Integration:**
+{{#if technicalArchitecture.apiDesign.graphql}}
+- **Schema Design:** {{technicalArchitecture.apiDesign.graphql.schema}}
+- **Query Optimization:** {{technicalArchitecture.apiDesign.graphql.optimization}}
+- **Caching Strategy:** {{technicalArchitecture.apiDesign.graphql.caching}}
+{{else}}
+*GraphQL integration to be evaluated in future iterations*
+{{/if}}
+{{/if}}
+
+### Authentication & Authorization
+
+**Primary Method:** {{technicalArchitecture.apiDesign.authentication.method}}  
+**Implementation:** {{technicalArchitecture.apiDesign.authentication.implementation}}
+
+{{#if detailedAnalysis}}
+#### Security Architecture
+
+**JWT Token Strategy:**
+- **Token Type:** {{technicalArchitecture.security.jwt.tokenType}}
+- **Expiration:** {{technicalArchitecture.security.jwt.expiration}}
+- **Refresh Strategy:** {{technicalArchitecture.security.jwt.refreshStrategy}}
+- **Signing Algorithm:** {{technicalArchitecture.security.jwt.algorithm}}
+
+**OAuth 2.0 / OIDC:**
+- **Grant Types:** {{bulletList technicalArchitecture.security.oauth.grantTypes}}
+- **Scopes:** {{bulletList technicalArchitecture.security.oauth.scopes}}
+- **Identity Providers:** {{bulletList technicalArchitecture.security.oauth.providers}}
+
+**Rate Limiting Strategy:**
+{{#each technicalArchitecture.apiDesign.rateLimiting.tiers}}
+- **{{tier}}:** {{limit}} requests per {{window}}
+  - **Burst Allowance:** {{burst}} requests
+  - **Throttling:** {{throttling}}
+{{/each}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+#### API Gateway Architecture
+
+**Gateway Platform:** {{technicalArchitecture.apiGateway.platform}}
+
+**Cross-Cutting Concerns:**
+- **Request/Response Transformation:** {{technicalArchitecture.apiGateway.transformation}}
+- **Service Discovery:** {{technicalArchitecture.apiGateway.serviceDiscovery}}
+- **Circuit Breaker:** {{technicalArchitecture.apiGateway.circuitBreaker}}
+- **Analytics & Monitoring:** {{technicalArchitecture.apiGateway.analytics}}
+
+**API Versioning Strategy:**
+- **Versioning Method:** {{technicalArchitecture.apiDesign.versioning.method}}
+- **Backward Compatibility:** {{technicalArchitecture.apiDesign.versioning.backwardCompatibility}}
+- **Deprecation Policy:** {{technicalArchitecture.apiDesign.versioning.deprecationPolicy}}
+{{/if}}
+
+### Endpoint Specifications
+
+{{#each technicalArchitecture.apiDesign.endpoints}}
+#### `{{method}} {{path}}`
+
+**Description:** {{description}}  
+{{#if authentication}}**Authentication:** {{authentication}}{{/if}}  
+{{#if rateLimits}}**Rate Limits:** {{rateLimits}}{{/if}}
+
+{{#if requestSchema}}
+**Request Schema:**
+```json
+{{json requestSchema}}
+```
+{{/if}}
+
+**Response Schemas:**
+
+{{#each responseSchemas}}
+##### {{statusCode}} - {{description}}
+```json
+{{json schema}}
+```
+{{/each}}
+
+{{#if detailedAnalysis}}
+**Performance Characteristics:**
+- **Expected Response Time:** {{performance.responseTime}}ms (p95)
+- **Throughput Capacity:** {{performance.throughput}} req/sec
+- **Error Rate SLA:** < {{performance.errorRate}}%
+
+**Caching Strategy:**
+- **Cache-Control:** {{caching.cacheControl}}
+- **TTL:** {{caching.ttl}} seconds
+- **Invalidation:** {{caching.invalidation}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Monitoring & Alerting:**
+- **Success Rate:** > {{monitoring.successRate}}%
+- **Response Time:** < {{monitoring.responseTime}}ms (p99)
+- **Error Alerts:** {{bulletList monitoring.errorAlerts}}
+- **Business Logic Alerts:** {{bulletList monitoring.businessAlerts}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{/if}}
+
+## Security Architecture
+
+{{#if technicalArchitecture.systemArchitecture.securityConsiderations}}
+
+### Security Framework
+
+{{#each technicalArchitecture.systemArchitecture.securityConsiderations}}
+#### {{capitalize area}} Security
+
+**Risk Assessment:** {{concern}}  
+**Mitigation Strategy:** {{mitigation}}  
+{{#if detailedAnalysis}}
+**Implementation Details:** {{implementation}}  
+**Testing Strategy:** {{testing}}  
+**Monitoring:** {{monitoring}}  
+{{/if}}
+
+---
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Threat Modeling
+
+{{#each technicalArchitecture.security.threatModel}}
+#### {{category}} Threats
+
+**STRIDE Analysis:**
+
+| Threat Type | Description | Impact | Probability | Mitigation |
+|-------------|-------------|---------|-------------|------------|
+{{#each threats}}
+| {{type}} | {{description}} | {{impact}} | {{probability}} | {{mitigation}} |
+{{/each}}
+
+**Security Controls:**
+{{bulletList securityControls}}
+
+**Testing Requirements:**
+{{bulletList testingRequirements}}
+
+---
+{{/each}}
+
+### Compliance Requirements
+
+{{#each technicalArchitecture.security.compliance}}
+#### {{standard}} Compliance
+
+**Requirements:**
+{{bulletList requirements}}
+
+**Implementation Status:**
+{{#each implementation}}
+- **{{control}}:** {{status}} - {{description}}
+{{/each}}
+
+**Audit Schedule:** {{auditSchedule}}  
+**Certification Timeline:** {{certificationTimeline}}
+
+---
+{{/each}}
+{{/if}}
+
+{{else}}
+*Security architecture will be detailed during technical planning.*
+{{/if}}
+
+## Performance Architecture
+
+{{#if technicalArchitecture.systemArchitecture.performanceTargets}}
+
+### Performance Requirements
+
+{{#each technicalArchitecture.systemArchitecture.performanceTargets}}
+#### {{metric}} Performance
+
+**Target:** {{target}}  
+**Current Baseline:** {{baseline}}  
+**Measurement Method:** {{measurementMethod}}
+
+{{#if detailedAnalysis}}
+**Optimization Strategies:**
+{{bulletList optimizationStrategies}}
+
+**Performance Testing:**
+- **Load Testing:** {{loadTesting.strategy}}
+- **Stress Testing:** {{stressTesting.strategy}}
+- **Endurance Testing:** {{enduranceTesting.strategy}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Performance Monitoring:**
+- **Real User Monitoring:** {{monitoring.rum}}
+- **Synthetic Monitoring:** {{monitoring.synthetic}}
+- **Application Performance Monitoring:** {{monitoring.apm}}
+- **Infrastructure Monitoring:** {{monitoring.infrastructure}}
+
+**Performance Budgets:**
+{{#each performanceBudgets}}
+- **{{metric}}:** {{budget}} ({{current}} current)
+{{/each}}
+{{/if}}
+
+---
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Caching Architecture
+
+{{#each technicalArchitecture.performance.caching.layers}}
+#### {{name}} Caching Layer
+
+**Technology:** {{technology}}  
+**Strategy:** {{strategy}}  
+**TTL:** {{ttl}}  
+**Cache Size:** {{size}}
+
+**Cache Key Strategy:**
+{{bulletList keyStrategy}}
+
+**Invalidation Strategy:**
+{{bulletList invalidationStrategy}}
+
+**Performance Impact:**
+- **Hit Rate Target:** {{hitRateTarget}}%
+- **Response Time Improvement:** {{responseTimeImprovement}}ms
+- **Load Reduction:** {{loadReduction}}%
+
+---
+{{/each}}
+
+### Content Delivery Network (CDN)
+
+**CDN Provider:** {{technicalArchitecture.performance.cdn.provider}}  
+**Edge Locations:** {{technicalArchitecture.performance.cdn.edgeLocations}}  
+**Caching Rules:** {{bulletList technicalArchitecture.performance.cdn.cachingRules}}
+
+**Performance Benefits:**
+- **Global Latency Reduction:** {{technicalArchitecture.performance.cdn.latencyReduction}}ms average
+- **Origin Load Reduction:** {{technicalArchitecture.performance.cdn.loadReduction}}%
+- **Bandwidth Savings:** {{technicalArchitecture.performance.cdn.bandwidthSavings}}%
+{{/if}}
+
+{{else}}
+*Performance architecture will be designed during optimization planning.*
+{{/if}}
+
+## Scalability Architecture
+
+{{#if technicalArchitecture.systemArchitecture.scalabilityFactors}}
+
+### Scalability Strategy
+
+{{#each technicalArchitecture.systemArchitecture.scalabilityFactors}}
+#### {{component}} Scaling
+
+**Scaling Strategy:** {{scalingStrategy}}
+
+**Current Bottlenecks:**
+{{bulletList bottlenecks}}
+
+**Scaling Solutions:**
+{{bulletList solutions}}
+
+{{#if detailedAnalysis}}
+**Auto-Scaling Configuration:**
+- **Scale-Out Trigger:** {{autoScaling.scaleOutTrigger}}
+- **Scale-In Trigger:** {{autoScaling.scaleInTrigger}}
+- **Min Instances:** {{autoScaling.minInstances}}
+- **Max Instances:** {{autoScaling.maxInstances}}
+
+**Load Testing Results:**
+- **Breaking Point:** {{loadTesting.breakingPoint}} requests/second
+- **Optimal Throughput:** {{loadTesting.optimalThroughput}} requests/second
+- **Response Time at Load:** {{loadTesting.responseTimeAtLoad}}ms
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Capacity Planning:**
+
+| Load Scenario | CPU Usage | Memory Usage | Network I/O | Storage I/O | Instance Count |
+|---------------|-----------|--------------|-------------|-------------|----------------|
+{{#each capacityPlanning}}
+| {{scenario}} | {{cpuUsage}}% | {{memoryUsage}}% | {{networkIO}} | {{storageIO}} | {{instanceCount}} |
+{{/each}}
+
+**Cost Scaling Analysis:**
+- **Cost per Additional User:** ${{costAnalysis.perUser}}
+- **Infrastructure Cost Growth:** {{costAnalysis.growthRate}}% per 100% user increase
+- **Break-even Point:** {{costAnalysis.breakEvenUsers}} users
+{{/if}}
+
+---
+
+{{/each}}
+
+{{else}}
+*Scalability planning will be completed during architecture design.*
+{{/if}}
+
+## Implementation Architecture
+
+{{#if technicalArchitecture.implementationPlan}}
+### Development Architecture
+
+{{#each technicalArchitecture.implementationPlan.phases}}
+#### Phase {{phase}}: {{name}}
+
+**Duration:** {{duration}}  
+**Team Size:** {{teamSize}} developers
+
+{{#if dependencies.length}}
+**Dependencies:**
+{{bulletList dependencies}}
+{{/if}}
+
+**Architecture Deliverables:**
+{{#each deliverables}}
+- **{{name}}** ({{type}}): {{description}}
+  {{#if detailedAnalysis}}
+  - **Complexity:** {{complexity}}/10
+  - **Risk Level:** {{riskLevel}}
+  - **Testing Requirements:** {{testingRequirements}}
+  {{/if}}
+{{/each}}
+
+{{#if detailedAnalysis}}
+**Technical Risks:**
+{{#each risks}}
+##### {{risk}} ({{impact}} Impact)
+**Probability:** {{probability}}  
+**Mitigation:** {{mitigation}}  
+**Contingency:** {{contingency}}
+{{/each}}
+
+**Quality Gates:**
+{{bulletList qualityGates}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Resource Allocation:**
+
+| Role | Allocation | Skills Required | Deliverables |
+|------|------------|-----------------|--------------|
+{{#each resources}}
+| {{role}} | {{allocation}}% | {{#each skills}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} | {{#each deliverables}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/each}}
+
+**Technology Integration Points:**
+{{#each integrationPoints}}
+- **{{system}}:** {{#each touchpoints}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Development Infrastructure
+
+**Development Environment:**
+- **Containerization:** {{technicalArchitecture.developmentInfrastructure.containerization}}
+- **Service Mesh:** {{technicalArchitecture.developmentInfrastructure.serviceMesh}}
+- **Monitoring Stack:** {{bulletList technicalArchitecture.developmentInfrastructure.monitoring}}
+
+**CI/CD Pipeline Architecture:**
+
+```mermaid
+graph LR
+    A[Source Code] --> B[Build]
+    B --> C[Unit Tests]
+    C --> D[Integration Tests]
+    D --> E[Security Scan]
+    E --> F[Deploy to Staging]
+    F --> G[E2E Tests]
+    G --> H[Performance Tests]
+    H --> I[Deploy to Production]
+```
+
+**Pipeline Stages:**
+{{#each technicalArchitecture.cicd.stages}}
+- **{{name}}:** {{description}}
+  - **Duration:** {{duration}} minutes
+  - **Success Criteria:** {{successCriteria}}
+  - **Failure Actions:** {{failureActions}}
+{{/each}}
+{{/if}}
+
+{{else}}
+*Implementation planning will be completed during final architecture phase.*
+{{/if}}
+
+## Monitoring & Observability
+
+### Monitoring Strategy
+
+**Monitoring Philosophy:** {{technicalArchitecture.monitoring.philosophy}}
+
+{{#if detailedAnalysis}}
+#### Application Performance Monitoring
+
+**APM Solution:** {{technicalArchitecture.monitoring.apm.solution}}
+
+**Key Metrics:**
+{{#each technicalArchitecture.monitoring.apm.metrics}}
+- **{{name}}:** {{description}}
+  - **Threshold:** {{threshold}}
+  - **Alert Severity:** {{severity}}
+  - **Response Time:** {{responseTime}} minutes
+{{/each}}
+
+#### Infrastructure Monitoring
+
+**Monitoring Stack:**
+{{#each technicalArchitecture.monitoring.infrastructure.stack}}
+- **{{component}}:** {{technology}} - {{purpose}}
+{{/each}}
+
+**Infrastructure Metrics:**
+{{#each technicalArchitecture.monitoring.infrastructure.metrics}}
+- **{{category}}:** {{bulletList metrics}}
+{{/each}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+#### Distributed Tracing
+
+**Tracing Solution:** {{technicalArchitecture.monitoring.tracing.solution}}  
+**Sampling Strategy:** {{technicalArchitecture.monitoring.tracing.sampling}}
+
+**Trace Instrumentation:**
+{{#each technicalArchitecture.monitoring.tracing.instrumentation}}
+- **{{service}}:** {{bulletList touchpoints}}
+{{/each}}
+
+#### Log Aggregation & Analysis
+
+**Logging Stack:**
+- **Collection:** {{technicalArchitecture.logging.collection}}
+- **Aggregation:** {{technicalArchitecture.logging.aggregation}}
+- **Analysis:** {{technicalArchitecture.logging.analysis}}
+- **Retention:** {{technicalArchitecture.logging.retention}}
+
+**Log Structure:**
+```json
+{{json technicalArchitecture.logging.structure}}
+```
+
+#### Business Intelligence & Analytics
+
+**Analytics Platform:** {{technicalArchitecture.analytics.platform}}
+
+**Business Metrics:**
+{{#each technicalArchitecture.analytics.businessMetrics}}
+- **{{name}}:** {{description}}
+  - **Calculation:** {{calculation}}
+  - **Update Frequency:** {{frequency}}
+  - **Stakeholder:** {{stakeholder}}
+{{/each}}
+
+**Data Pipeline:**
+{{#each technicalArchitecture.analytics.pipeline}}
+- **{{stage}}:** {{technology}} ({{description}})
+{{/each}}
+{{/if}}
+
+## Deployment Architecture
+
+### Deployment Strategy
+
+**Deployment Pattern:** {{technicalArchitecture.deployment.pattern}}  
+**Rollback Strategy:** {{technicalArchitecture.deployment.rollbackStrategy}}
+
+{{#if detailedAnalysis}}
+#### Environment Architecture
+
+{{#each technicalArchitecture.deployment.environments}}
+##### {{name}} Environment
+
+**Purpose:** {{purpose}}  
+**Infrastructure:** {{infrastructure}}  
+**Configuration:**
+{{#each configuration}}
+- **{{key}}:** {{value}}
+{{/each}}
+
+**Access Controls:**
+{{bulletList accessControls}}
+
+**Data Sources:**
+{{#each dataSources}}
+- **{{name}}:** {{type}} ({{description}})
+{{/each}}
+
+---
+{{/each}}
+
+#### Blue-Green Deployment
+
+**Switch Mechanism:** {{technicalArchitecture.deployment.blueGreen.switchMechanism}}  
+**Health Checks:** {{bulletList technicalArchitecture.deployment.blueGreen.healthChecks}}  
+**Rollback Time:** {{technicalArchitecture.deployment.blueGreen.rollbackTime}} minutes
+
+**Traffic Routing:**
+1. {{technicalArchitecture.deployment.blueGreen.routing.step1}}
+2. {{technicalArchitecture.deployment.blueGreen.routing.step2}}
+3. {{technicalArchitecture.deployment.blueGreen.routing.step3}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+#### Canary Deployment Strategy
+
+**Canary Configuration:**
+- **Initial Traffic:** {{technicalArchitecture.deployment.canary.initialTraffic}}%
+- **Ramp-up Schedule:** {{bulletList technicalArchitecture.deployment.canary.rampUp}}
+- **Success Criteria:** {{bulletList technicalArchitecture.deployment.canary.successCriteria}}
+- **Rollback Triggers:** {{bulletList technicalArchitecture.deployment.canary.rollbackTriggers}}
+
+#### Infrastructure as Code
+
+**IaC Platform:** {{technicalArchitecture.deployment.iac.platform}}  
+**Configuration Management:** {{technicalArchitecture.deployment.iac.configManagement}}
+
+**Resource Provisioning:**
+```{{technicalArchitecture.deployment.iac.language}}
+{{technicalArchitecture.deployment.iac.example}}
+```
+
+**Deployment Automation:**
+{{#each technicalArchitecture.deployment.automation}}
+- **{{stage}}:** {{tool}} - {{description}}
+{{/each}}
+{{/if}}
+
+## Disaster Recovery & Business Continuity
+
+{{#if comprehensiveAnalysis}}
+### Disaster Recovery Plan
+
+**RTO (Recovery Time Objective):** {{technicalArchitecture.disasterRecovery.rto}}  
+**RPO (Recovery Point Objective):** {{technicalArchitecture.disasterRecovery.rpo}}
+
+#### DR Site Architecture
+
+**Primary Site:** {{technicalArchitecture.disasterRecovery.primary.location}}  
+**DR Site:** {{technicalArchitecture.disasterRecovery.secondary.location}}  
+**Replication Strategy:** {{technicalArchitecture.disasterRecovery.replication}}
+
+**Failover Procedures:**
+{{numberedList technicalArchitecture.disasterRecovery.failoverProcedures}}
+
+**Recovery Procedures:**
+{{numberedList technicalArchitecture.disasterRecovery.recoveryProcedures}}
+
+#### Business Continuity
+
+**Critical Services Priority:**
+{{#each technicalArchitecture.businessContinuity.services}}
+1. **{{name}}** (RTO: {{rto}}, RPO: {{rpo}})
+   - **Dependencies:** {{bulletList dependencies}}
+   - **Recovery Steps:** {{bulletList recoverySteps}}
+{{/each}}
+
+**Communication Plan:**
+{{#each technicalArchitecture.businessContinuity.communication}}
+- **{{role}}:** {{contact}} - {{responsibility}}
+{{/each}}
+{{/if}}
+
+## Architecture Governance
+
+{{#if isPremium}}
+### Architecture Decision Records (ADRs)
+
+{{#each technicalArchitecture.governance.adrs}}
+#### ADR-{{number}}: {{title}}
+
+**Status:** {{status}}  
+**Date:** {{formatDate date}}  
+**Decision Makers:** {{#each decisionMakers}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+
+**Context:**
+{{context}}
+
+**Decision:**
+{{decision}}
+
+**Consequences:**
+{{#each consequences}}
+- {{this}}
+{{/each}}
+
+---
+{{/each}}
+
+### Architecture Review Process
+
+**Review Frequency:** {{technicalArchitecture.governance.reviewFrequency}}  
+**Review Committee:** {{bulletList technicalArchitecture.governance.reviewCommittee}}
+
+**Review Criteria:**
+{{bulletList technicalArchitecture.governance.reviewCriteria}}
+
+{{#if comprehensiveAnalysis}}
+### Technology Radar
+
+{{#each technicalArchitecture.governance.technologyRadar}}
+#### {{category}}
+
+**Adopt:**
+{{bulletList adopt}}
+
+**Trial:**
+{{bulletList trial}}
+
+**Assess:**
+{{bulletList assess}}
+
+**Hold:**
+{{bulletList hold}}
+
+---
+{{/each}}
+{{/if}}
+{{/if}}
+
+## Conclusion
+
+This detailed technical architecture provides a comprehensive foundation for building **{{projectName}}** with enterprise-grade capabilities. The architecture emphasizes:
+
+- **Scalability:** Designed to handle growth from startup to enterprise scale
+- **Security:** Implements defense-in-depth with modern security practices
+- **Performance:** Optimized for low latency and high throughput
+- **Reliability:** Built with fault tolerance and disaster recovery in mind
+- **Maintainability:** Follows clean architecture principles and modern development practices
+
+{{#if comprehensiveAnalysis}}
+### Next Steps
+
+1. **Architecture Validation:** Conduct architecture review with stakeholders
+2. **Prototype Development:** Build proof-of-concept for critical components
+3. **Technology Spike:** Validate key technology choices and integrations
+4. **Team Training:** Ensure development team is trained on chosen technologies
+5. **Infrastructure Setup:** Provision development and staging environments
+6. **Security Review:** Complete security architecture review and threat modeling
+7. **Performance Testing:** Establish performance baselines and testing procedures
+{{/if}}
+
+{{#if customBranding}}
+---
+
+*This architecture document was prepared specifically for {{branding.companyName}} using enterprise-grade analysis and recommendations.*
+{{/if}}
+
+{{> footer}}

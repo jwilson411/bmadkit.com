@@ -1,0 +1,838 @@
+{{> header}}
+
+# Competitive Analysis & Market Positioning
+{{#if customBranding}}
+*Strategic Market Analysis for {{branding.companyName}}*
+{{/if}}
+
+**Project:** {{projectName}}  
+**Generated:** {{formatDate generatedAt}}  
+**Analysis Depth:** {{capitalize analysisDepth}}  
+**Market Research Date:** {{formatDate competitiveAnalysis.researchDate}}
+
+---
+
+## Executive Summary
+
+This comprehensive competitive analysis examines the market landscape for **{{projectName}}**, identifying key competitors, market opportunities, and strategic positioning recommendations. The analysis covers {{competitiveAnalysis.competitors.length}} primary competitors and {{competitiveAnalysis.indirectCompetitors.length}} indirect competitors, evaluating their strengths, weaknesses, and market positioning to inform strategic decision-making.
+
+{{#if comprehensiveAnalysis}}
+### Key Strategic Insights
+
+**Market Size:** ${{marketPositioning.marketSize.total}} ({{marketPositioning.marketSize.growthRate}}% CAGR)  
+**Addressable Market:** ${{marketPositioning.marketSize.addressable}} ({{marketPositioning.marketSize.addressablePercentage}}%)  
+**Target Market Share:** {{marketPositioning.targetMarketShare}}% within {{marketPositioning.timeframe}}
+
+**Competitive Advantage:** {{competitiveAnalysis.competitiveAdvantage}}  
+**Market Entry Strategy:** {{marketPositioning.entryStrategy}}  
+**Differentiation Factors:** {{#each marketPositioning.differentiationFactors}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+{{/if}}
+
+## Market Overview
+
+{{#if marketPositioning}}
+### Market Landscape
+
+**Industry:** {{marketPositioning.industry}}  
+**Market Segment:** {{marketPositioning.segment}}  
+**Geographic Scope:** {{marketPositioning.geographicScope}}
+
+{{#if detailedAnalysis}}
+#### Market Size & Growth
+
+**Total Addressable Market (TAM):** ${{marketPositioning.tam}}  
+**Serviceable Addressable Market (SAM):** ${{marketPositioning.sam}}  
+**Serviceable Obtainable Market (SOM):** ${{marketPositioning.som}}
+
+**Market Growth Drivers:**
+{{bulletList marketPositioning.growthDrivers}}
+
+**Market Constraints:**
+{{bulletList marketPositioning.marketConstraints}}
+
+#### Market Segments
+
+{{#each marketPositioning.segments}}
+##### {{name}} Segment
+
+**Size:** ${{size}} ({{percentage}}% of total market)  
+**Growth Rate:** {{growthRate}}%  
+**Key Characteristics:** {{bulletList characteristics}}
+
+**Customer Profile:**
+- **Primary Demographics:** {{customerProfile.demographics}}
+- **Buying Behavior:** {{customerProfile.buyingBehavior}}
+- **Pain Points:** {{bulletList customerProfile.painPoints}}
+
+**Opportunity Assessment:** {{opportunityAssessment}}
+
+---
+{{/each}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+### Market Trends & Forces
+
+#### Technology Trends
+
+{{#each marketPositioning.technologyTrends}}
+##### {{trend}}
+
+**Impact Level:** {{impact}}/5  
+**Timeline:** {{timeline}}  
+**Description:** {{description}}
+
+**Opportunity:** {{opportunity}}  
+**Threat:** {{threat}}
+
+**Strategic Response:**
+{{bulletList strategicResponse}}
+
+---
+{{/each}}
+
+#### Regulatory Environment
+
+{{#each marketPositioning.regulatoryEnvironment}}
+##### {{regulation}}
+
+**Current Status:** {{currentStatus}}  
+**Proposed Changes:** {{proposedChanges}}  
+**Impact Assessment:** {{impactAssessment}}
+
+**Compliance Requirements:**
+{{bulletList complianceRequirements}}
+
+**Strategic Implications:**
+{{bulletList strategicImplications}}
+
+---
+{{/each}}
+{{/if}}
+{{/if}}
+
+## Competitive Landscape
+
+{{#if competitiveAnalysis.competitors}}
+### Direct Competitors
+
+{{#each competitiveAnalysis.competitors}}
+## {{name}} {{#if isPublic}}({{ticker}}){{/if}}
+
+**Founded:** {{founded}}  
+**Headquarters:** {{headquarters}}  
+**Employees:** {{employeeCount}}  
+{{#if isPublic}}**Market Cap:** ${{marketCap}}{{else}}**Funding:** ${{totalFunding}} ({{fundingStage}}){{/if}}
+
+### Company Overview
+
+{{description}}
+
+{{#if detailedAnalysis}}
+#### Financial Performance
+
+{{#if isPublic}}
+**Public Company Metrics:**
+- **Revenue (TTM):** ${{financialMetrics.revenue}}
+- **Revenue Growth:** {{financialMetrics.revenueGrowth}}%
+- **Gross Margin:** {{financialMetrics.grossMargin}}%
+- **Operating Margin:** {{financialMetrics.operatingMargin}}%
+- **Market Valuation:** ${{financialMetrics.marketCap}}
+{{else}}
+**Private Company Metrics:**
+- **Estimated Revenue:** ${{financialMetrics.estimatedRevenue}}
+- **Funding Rounds:** {{financialMetrics.fundingRounds}}
+- **Latest Valuation:** ${{financialMetrics.latestValuation}}
+- **Key Investors:** {{#each financialMetrics.keyInvestors}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
+{{/if}}
+
+#### Business Model
+
+**Revenue Streams:**
+{{#each businessModel.revenueStreams}}
+- **{{name}}:** {{contribution}}% - {{description}}
+{{/each}}
+
+**Pricing Strategy:** {{businessModel.pricingStrategy}}  
+**Customer Acquisition Cost:** ${{businessModel.cac}}  
+**Lifetime Value:** ${{businessModel.ltv}}  
+**LTV/CAC Ratio:** {{businessModel.ltvCacRatio}}
+{{/if}}
+
+### Product/Service Analysis
+
+{{#each products}}
+#### {{name}}
+
+**Launch Date:** {{launchDate}}  
+**Market Position:** {{marketPosition}}  
+**Pricing:** {{pricing}}
+
+**Key Features:**
+{{bulletList features}}
+
+**Target Audience:** {{targetAudience}}  
+**Market Share:** {{marketShare}}%
+
+{{#if detailedAnalysis}}
+**Competitive Advantages:**
+{{bulletList competitiveAdvantages}}
+
+**Weaknesses:**
+{{bulletList weaknesses}}
+
+**User Reviews Summary:**
+- **Average Rating:** {{userReviews.averageRating}}/5
+- **Total Reviews:** {{userReviews.totalReviews}}
+- **Common Praise:** {{bulletList userReviews.commonPraise}}
+- **Common Complaints:** {{bulletList userReviews.commonComplaints}}
+{{/if}}
+
+---
+{{/each}}
+
+### SWOT Analysis
+
+#### Strengths
+{{bulletList swotAnalysis.strengths}}
+
+#### Weaknesses
+{{bulletList swotAnalysis.weaknesses}}
+
+#### Opportunities
+{{bulletList swotAnalysis.opportunities}}
+
+#### Threats
+{{bulletList swotAnalysis.threats}}
+
+{{#if detailedAnalysis}}
+### Market Strategy
+
+**Go-to-Market Strategy:** {{marketStrategy.goToMarket}}  
+**Channel Strategy:** {{bulletList marketStrategy.channels}}  
+**Partnership Strategy:** {{bulletList marketStrategy.partnerships}}
+
+**Marketing Approach:**
+- **Primary Channels:** {{bulletList marketStrategy.marketing.primaryChannels}}
+- **Content Strategy:** {{marketStrategy.marketing.contentStrategy}}
+- **Brand Positioning:** {{marketStrategy.marketing.brandPositioning}}
+
+**Sales Strategy:**
+- **Sales Model:** {{marketStrategy.sales.model}}
+- **Sales Cycle:** {{marketStrategy.sales.cycle}}
+- **Average Deal Size:** ${{marketStrategy.sales.averageDealSize}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+### Technology Stack
+
+**Frontend Technologies:**
+{{bulletList technologyStack.frontend}}
+
+**Backend Technologies:**
+{{bulletList technologyStack.backend}}
+
+**Infrastructure:**
+{{bulletList technologyStack.infrastructure}}
+
+**Third-Party Integrations:**
+{{bulletList technologyStack.integrations}}
+
+**Technical Advantages:**
+{{bulletList technologyStack.advantages}}
+
+**Technical Limitations:**
+{{bulletList technologyStack.limitations}}
+
+### Innovation Pipeline
+
+{{#each innovationPipeline}}
+#### {{name}}
+
+**Stage:** {{stage}}  
+**Expected Launch:** {{expectedLaunch}}  
+**Potential Impact:** {{potentialImpact}}
+
+**Description:** {{description}}
+
+**Competitive Threat Level:** {{competitiveThreat}}/5
+
+---
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+
+### Indirect Competitors
+
+{{#each competitiveAnalysis.indirectCompetitors}}
+#### {{name}}
+
+**Category:** {{category}}  
+**Overlap Area:** {{overlapArea}}  
+**Threat Level:** {{threatLevel}}/5
+
+**Why They're a Threat:** {{threatDescription}}
+
+**Differentiation Strategy:** {{differentiationStrategy}}
+
+---
+{{/each}}
+{{/if}}
+
+## Competitive Positioning Matrix
+
+{{#if competitiveAnalysis.positioningMatrix}}
+### Feature Comparison Matrix
+
+| Feature | {{projectName}} | {{#each competitiveAnalysis.positioningMatrix.competitors}}{{name}}{{#unless @last}} | {{/unless}}{{/each}} |
+|---------|{{#each competitiveAnalysis.positioningMatrix.competitors}}------{{#unless @last}}|{{/unless}}{{/each}}|
+{{#each competitiveAnalysis.positioningMatrix.features}}
+| {{feature}} | {{ourRating}} | {{#each competitorRatings}}{{rating}}{{#unless @last}} | {{/unless}}{{/each}} |
+{{/each}}
+
+**Rating Scale:** 1 = Poor, 2 = Below Average, 3 = Average, 4 = Above Average, 5 = Excellent
+
+{{#if detailedAnalysis}}
+### Pricing Comparison
+
+| Product Tier | {{projectName}} | {{#each competitiveAnalysis.pricingComparison.competitors}}{{name}}{{#unless @last}} | {{/unless}}{{/each}} |
+|-------------|{{#each competitiveAnalysis.pricingComparison.competitors}}------{{#unless @last}}|{{/unless}}{{/each}}|
+{{#each competitiveAnalysis.pricingComparison.tiers}}
+| {{tier}} | ${{ourPrice}} | {{#each competitorPrices}}${{price}}{{#unless @last}} | {{/unless}}{{/each}} |
+{{/each}}
+
+**Pricing Analysis:**
+{{#each competitiveAnalysis.pricingComparison.analysis}}
+- **{{category}}:** {{analysis}}
+{{/each}}
+
+### Market Share Distribution
+
+```
+Market Share Visualization:
+{{pieChart competitiveAnalysis.marketShare}}
+```
+
+**Market Share Analysis:**
+{{#each competitiveAnalysis.marketShare}}
+- **{{company}}:** {{percentage}}% ({{trend}} trend)
+{{/each}}
+{{/if}}
+{{/if}}
+
+## Customer Analysis
+
+{{#if comprehensiveAnalysis}}
+### Customer Segmentation
+
+{{#each customerAnalysis.segments}}
+#### {{segmentName}}
+
+**Size:** {{segmentSize}} customers  
+**Growth Rate:** {{growthRate}}%  
+**Value:** ${{averageValue}} per customer
+
+**Demographics:**
+{{bulletList demographics}}
+
+**Psychographics:**
+{{bulletList psychographics}}
+
+**Behavior Patterns:**
+{{bulletList behaviorPatterns}}
+
+**Pain Points:**
+{{bulletList painPoints}}
+
+**Preferred Solutions:**
+{{bulletList preferredSolutions}}
+
+**Decision-Making Process:**
+{{numberedList decisionMakingProcess}}
+
+**Competitive Preference:**
+{{#each competitivePreference}}
+- **{{competitor}}:** {{preference}}% preference - {{reason}}
+{{/each}}
+
+---
+{{/each}}
+
+### Customer Journey Analysis
+
+{{#each customerAnalysis.customerJourney}}
+#### {{stage}} Stage
+
+**Customer Mindset:** {{mindset}}  
+**Key Actions:** {{bulletList keyActions}}  
+**Information Sources:** {{bulletList informationSources}}  
+**Pain Points:** {{bulletList painPoints}}
+
+**Competitive Touchpoints:**
+{{#each competitiveTouchpoints}}
+- **{{competitor}}:** {{touchpoint}} - {{impact}}
+{{/each}}
+
+**Opportunities:**
+{{bulletList opportunities}}
+
+---
+{{/each}}
+{{/if}}
+
+## Gap Analysis
+
+{{#if competitiveAnalysis.gapAnalysis}}
+### Market Gap Identification
+
+{{#each competitiveAnalysis.gapAnalysis.marketGaps}}
+#### {{gapName}}
+
+**Gap Type:** {{gapType}}  
+**Market Size:** ${{marketSize}}  
+**Customer Segments:** {{bulletList customerSegments}}
+
+**Current Solutions:** {{currentSolutions}}  
+**Solution Limitations:** {{bulletList limitations}}
+
+**Opportunity Assessment:**
+- **Market Attractiveness:** {{opportunity.marketAttractiveness}}/5
+- **Technical Feasibility:** {{opportunity.technicalFeasibility}}/5
+- **Competitive Intensity:** {{opportunity.competitiveIntensity}}/5
+- **Resource Requirements:** {{opportunity.resourceRequirements}}/5
+
+**Recommended Strategy:** {{recommendedStrategy}}
+
+{{#if detailedAnalysis}}
+**Implementation Plan:**
+{{numberedList implementationPlan}}
+
+**Success Metrics:**
+{{bulletList successMetrics}}
+
+**Risk Factors:**
+{{bulletList riskFactors}}
+{{/if}}
+
+---
+{{/each}}
+
+### Feature Gap Analysis
+
+**Unmet Customer Needs:**
+{{#each competitiveAnalysis.gapAnalysis.featureGaps}}
+- **{{need}}:** {{description}}
+  - **Customer Demand:** {{demand}}/5
+  - **Technical Complexity:** {{complexity}}/5
+  - **Competitive Advantage Potential:** {{advantage}}/5
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Technology Gap Analysis
+
+{{#each competitiveAnalysis.gapAnalysis.technologyGaps}}
+#### {{technology}}
+
+**Current Industry Standard:** {{industryStandard}}  
+**Leading Competitor Implementation:** {{leadingImplementation}}  
+**Our Current Capability:** {{ourCapability}}
+
+**Gap Assessment:** {{gapAssessment}}
+
+**Closing Strategy:**
+{{bulletList closingStrategy}}
+
+**Investment Required:** ${{investmentRequired}}  
+**Timeline:** {{timeline}}
+
+---
+{{/each}}
+{{/if}}
+{{/if}}
+
+## Competitive Strategy Recommendations
+
+### Positioning Strategy
+
+{{#if marketPositioning.positioningStrategy}}
+**Primary Positioning:** {{marketPositioning.positioningStrategy.primary}}
+
+**Value Proposition:** {{marketPositioning.positioningStrategy.valueProposition}}
+
+**Positioning Statement:** {{marketPositioning.positioningStrategy.statement}}
+
+{{#if detailedAnalysis}}
+#### Differentiation Strategy
+
+**Primary Differentiators:**
+{{#each marketPositioning.positioningStrategy.differentiators}}
+- **{{factor}}:** {{description}}
+  - **Competitive Advantage:** {{competitiveAdvantage}}
+  - **Sustainability:** {{sustainability}}/5
+  - **Customer Value:** {{customerValue}}/5
+{{/each}}
+
+**Positioning Map:**
+```
+High Price
+    |
+    |  Premium Players     Niche Premium
+    |      ({{#each marketPositioning.positioningMap.premiumPlayers}}{{name}}{{#unless @last}}, {{/unless}}{{/each}})
+    |
+    |------------------------
+    |
+Low Feature  |  [Our Position]  |  High Feature
+Complexity   |                  |  Complexity
+    |------------------------
+    |
+    |  Budget Players      Mass Market
+    |      ({{#each marketPositioning.positioningMap.budgetPlayers}}{{name}}{{#unless @last}}, {{/unless}}{{/each}})
+    |
+Low Price
+```
+
+#### Brand Positioning
+
+**Brand Personality:** {{marketPositioning.brandPositioning.personality}}  
+**Brand Voice:** {{marketPositioning.brandPositioning.voice}}  
+**Brand Promise:** {{marketPositioning.brandPositioning.promise}}
+
+**Key Messages:**
+{{bulletList marketPositioning.brandPositioning.keyMessages}}
+
+**Proof Points:**
+{{bulletList marketPositioning.brandPositioning.proofPoints}}
+{{/if}}
+{{/if}}
+
+### Go-to-Market Strategy
+
+{{#if marketPositioning.goToMarketStrategy}}
+**Market Entry Approach:** {{marketPositioning.goToMarketStrategy.approach}}  
+**Target Segments (Priority Order):**
+{{numberedList marketPositioning.goToMarketStrategy.targetSegments}}
+
+{{#if detailedAnalysis}}
+#### Channel Strategy
+
+**Primary Channels:**
+{{#each marketPositioning.goToMarketStrategy.channels.primary}}
+- **{{channel}}:** {{description}}
+  - **Investment:** ${{investment}}
+  - **Expected ROI:** {{roi}}%
+  - **Timeline to Effectiveness:** {{timeline}}
+{{/each}}
+
+**Secondary Channels:**
+{{bulletList marketPositioning.goToMarketStrategy.channels.secondary}}
+
+#### Partnership Strategy
+
+**Strategic Partnerships:**
+{{#each marketPositioning.goToMarketStrategy.partnerships.strategic}}
+- **{{partner}}:** {{partnershipType}} - {{strategicValue}}
+{{/each}}
+
+**Channel Partnerships:**
+{{bulletList marketPositioning.goToMarketStrategy.partnerships.channel}}
+
+**Technology Partnerships:**
+{{bulletList marketPositioning.goToMarketStrategy.partnerships.technology}}
+{{/if}}
+
+#### Pricing Strategy
+
+**Pricing Model:** {{marketPositioning.goToMarketStrategy.pricing.model}}  
+**Price Positioning:** {{marketPositioning.goToMarketStrategy.pricing.positioning}}
+
+{{#if detailedAnalysis}}
+**Pricing Tiers:**
+{{#each marketPositioning.goToMarketStrategy.pricing.tiers}}
+- **{{tier}}:** ${{price}} - {{description}}
+  - **Target Segment:** {{targetSegment}}
+  - **Key Features:** {{bulletList keyFeatures}}
+  - **Competitive Comparison:** {{competitiveComparison}}
+{{/each}}
+
+**Pricing Psychology:**
+- **Reference Price:** ${{marketPositioning.goToMarketStrategy.pricing.psychology.referencePrice}}
+- **Anchoring Strategy:** {{marketPositioning.goToMarketStrategy.pricing.psychology.anchoring}}
+- **Value Communication:** {{marketPositioning.goToMarketStrategy.pricing.psychology.valueCommunication}}
+{{/if}}
+{{/if}}
+
+### Competitive Response Strategy
+
+{{#if competitiveAnalysis.responseStrategy}}
+**Overall Strategy:** {{competitiveAnalysis.responseStrategy.overall}}
+
+{{#each competitiveAnalysis.responseStrategy.scenarios}}
+#### Scenario: {{scenario}}
+
+**Trigger Events:**
+{{bulletList triggerEvents}}
+
+**Response Plan:**
+{{numberedList responsePlan}}
+
+**Resource Requirements:** ${{resourceRequirements}}  
+**Timeline:** {{timeline}}
+
+**Success Metrics:**
+{{bulletList successMetrics}}
+
+{{#if comprehensiveAnalysis}}
+**Risk Assessment:**
+- **Execution Risk:** {{riskAssessment.execution}}/5
+- **Market Risk:** {{riskAssessment.market}}/5
+- **Competitive Counter-Response:** {{riskAssessment.counterResponse}}/5
+
+**Contingency Plans:**
+{{bulletList contingencyPlans}}
+{{/if}}
+
+---
+{{/each}}
+{{/if}}
+
+## Market Entry & Growth Strategy
+
+{{#if comprehensiveAnalysis}}
+### Market Entry Plan
+
+**Entry Strategy:** {{marketEntryPlan.strategy}}  
+**Timeline:** {{marketEntryPlan.timeline}}  
+**Investment Required:** ${{marketEntryPlan.investment}}
+
+#### Phase 1: Market Validation ({{marketEntryPlan.phases.validation.duration}})
+
+**Objectives:**
+{{bulletList marketEntryPlan.phases.validation.objectives}}
+
+**Key Activities:**
+{{bulletList marketEntryPlan.phases.validation.activities}}
+
+**Success Metrics:**
+{{bulletList marketEntryPlan.phases.validation.metrics}}
+
+**Budget:** ${{marketEntryPlan.phases.validation.budget}}
+
+#### Phase 2: Market Penetration ({{marketEntryPlan.phases.penetration.duration}})
+
+**Objectives:**
+{{bulletList marketEntryPlan.phases.penetration.objectives}}
+
+**Key Activities:**
+{{bulletList marketEntryPlan.phases.penetration.activities}}
+
+**Success Metrics:**
+{{bulletList marketEntryPlan.phases.penetration.metrics}}
+
+**Budget:** ${{marketEntryPlan.phases.penetration.budget}}
+
+#### Phase 3: Market Expansion ({{marketEntryPlan.phases.expansion.duration}})
+
+**Objectives:**
+{{bulletList marketEntryPlan.phases.expansion.objectives}}
+
+**Key Activities:**
+{{bulletList marketEntryPlan.phases.expansion.activities}}
+
+**Success Metrics:**
+{{bulletList marketEntryPlan.phases.expansion.metrics}}
+
+**Budget:** ${{marketEntryPlan.phases.expansion.budget}}
+
+### Growth Strategy
+
+**Growth Model:** {{growthStrategy.model}}  
+**Primary Growth Levers:** {{bulletList growthStrategy.primaryLevers}}
+
+#### Customer Acquisition Strategy
+
+**Target Customer Acquisition Cost (CAC):** ${{growthStrategy.acquisition.targetCAC}}  
+**Customer Lifetime Value (LTV):** ${{growthStrategy.acquisition.ltv}}  
+**Target LTV/CAC Ratio:** {{growthStrategy.acquisition.targetRatio}}
+
+**Acquisition Channels:**
+{{#each growthStrategy.acquisition.channels}}
+- **{{channel}}:** {{description}}
+  - **Expected CAC:** ${{expectedCAC}}
+  - **Conversion Rate:** {{conversionRate}}%
+  - **Volume Potential:** {{volumePotential}} customers/month
+{{/each}}
+
+#### Retention & Expansion Strategy
+
+**Churn Reduction Target:** {{growthStrategy.retention.churnTarget}}%  
+**Expansion Revenue Target:** {{growthStrategy.retention.expansionTarget}}%
+
+**Retention Initiatives:**
+{{bulletList growthStrategy.retention.initiatives}}
+
+**Expansion Opportunities:**
+{{bulletList growthStrategy.retention.expansionOpportunities}}
+{{/if}}
+
+## Investment & Resource Requirements
+
+{{#if comprehensiveAnalysis}}
+### Financial Projections
+
+#### Revenue Projections (5-Year)
+
+| Year | Revenue | Growth Rate | Market Share | Customers |
+|------|---------|-------------|---------------|-----------|
+{{#each financialProjections.revenue}}
+| {{year}} | ${{revenue}} | {{growthRate}}% | {{marketShare}}% | {{customers}} |
+{{/each}}
+
+#### Investment Requirements
+
+**Total Investment Required:** ${{investmentRequirements.total}}
+
+**Investment Breakdown:**
+{{#each investmentRequirements.breakdown}}
+- **{{category}}:** ${{amount}} ({{percentage}}%)
+  - **Description:** {{description}}
+  - **Timeline:** {{timeline}}
+  - **ROI:** {{roi}}%
+{{/each}}
+
+**Funding Strategy:** {{investmentRequirements.fundingStrategy}}
+
+#### Key Financial Metrics
+
+**Break-even Timeline:** {{financialProjections.breakEven}}  
+**Return on Investment (5-year):** {{financialProjections.roi}}%  
+**Net Present Value:** ${{financialProjections.npv}}  
+**Internal Rate of Return:** {{financialProjections.irr}}%
+
+### Resource Allocation
+
+**Team Structure:**
+{{#each resourceAllocation.team}}
+- **{{role}}:** {{count}} FTEs
+  - **Cost:** ${{cost}}/year
+  - **Key Responsibilities:** {{bulletList responsibilities}}
+{{/each}}
+
+**Technology Investment:**
+{{#each resourceAllocation.technology}}
+- **{{category}}:** ${{investment}}
+  - **Description:** {{description}}
+  - **Strategic Importance:** {{importance}}/5
+{{/each}}
+
+**Marketing Budget:**
+{{#each resourceAllocation.marketing}}
+- **{{channel}}:** ${{budget}} ({{percentage}}% of marketing budget)
+{{/each}}
+{{/if}}
+
+## Success Metrics & KPIs
+
+### Market Performance Metrics
+
+**Primary KPIs:**
+{{#each successMetrics.primary}}
+- **{{metric}}:** {{target}} by {{deadline}}
+  - **Baseline:** {{baseline}}
+  - **Measurement Method:** {{measurementMethod}}
+  - **Reporting Frequency:** {{frequency}}
+{{/each}}
+
+**Secondary KPIs:**
+{{#each successMetrics.secondary}}
+- **{{metric}}:** {{target}}
+{{/each}}
+
+{{#if detailedAnalysis}}
+### Competitive Benchmarking
+
+**Benchmark Metrics:**
+{{#each successMetrics.benchmarking}}
+- **{{metric}}:** Our Target: {{ourTarget}}, Industry Average: {{industryAverage}}, Best-in-Class: {{bestInClass}}
+{{/each}}
+
+### Market Share Targets
+
+**Year 1:** {{successMetrics.marketShareTargets.year1}}%  
+**Year 3:** {{successMetrics.marketShareTargets.year3}}%  
+**Year 5:** {{successMetrics.marketShareTargets.year5}}%
+
+**Path to Market Leadership:**
+{{bulletList successMetrics.pathToLeadership}}
+{{/if}}
+
+## Risk Analysis & Mitigation
+
+### Competitive Risks
+
+{{#each competitiveRisks}}
+#### {{risk}}
+
+**Probability:** {{probability}}/5  
+**Impact:** {{impact}}/5  
+**Risk Score:** {{riskScore}}/25
+
+**Description:** {{description}}
+
+**Mitigation Strategies:**
+{{bulletList mitigationStrategies}}
+
+**Early Warning Indicators:**
+{{bulletList earlyWarnings}}
+
+---
+{{/each}}
+
+## Conclusion & Recommendations
+
+This comprehensive competitive analysis reveals a dynamic market landscape with significant opportunities for **{{projectName}}**. The analysis identifies {{competitiveAnalysis.competitors.length}} direct competitors and highlights key market gaps that can be leveraged for competitive advantage.
+
+### Strategic Recommendations Summary
+
+1. **Market Positioning:** {{strategicRecommendations.positioning}}
+2. **Differentiation Strategy:** {{strategicRecommendations.differentiation}}
+3. **Target Segments:** {{strategicRecommendations.targetSegments}}
+4. **Competitive Response:** {{strategicRecommendations.competitiveResponse}}
+5. **Investment Priority:** {{strategicRecommendations.investmentPriority}}
+
+{{#if comprehensiveAnalysis}}
+### Critical Success Factors
+
+{{#each strategicRecommendations.criticalSuccessFactors}}
+1. **{{factor}}:** {{description}}
+{{/each}}
+
+### Next Steps & Timeline
+
+**Immediate Actions (30 days):**
+{{bulletList strategicRecommendations.immediateActions}}
+
+**Short-term Initiatives (3 months):**
+{{bulletList strategicRecommendations.shortTerm}}
+
+**Long-term Strategy (12 months):**
+{{bulletList strategicRecommendations.longTerm}}
+
+### Expected Outcomes
+
+With successful execution of these recommendations, **{{projectName}}** is positioned to:
+- Achieve {{expectedOutcomes.marketShare}}% market share within {{expectedOutcomes.timeline}}
+- Generate ${{expectedOutcomes.revenue}} in annual revenue by year {{expectedOutcomes.revenueYear}}
+- Establish clear competitive differentiation in {{expectedOutcomes.differentiationAreas}}
+- Build sustainable competitive advantages through {{expectedOutcomes.competitiveAdvantages}}
+{{/if}}
+
+{{#if customBranding}}
+---
+
+*This strategic competitive analysis was prepared for {{branding.companyName}} to inform market entry and competitive positioning decisions.*
+{{/if}}
+
+{{> footer}}

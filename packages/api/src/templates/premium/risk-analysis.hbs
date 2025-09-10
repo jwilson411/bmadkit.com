@@ -1,0 +1,691 @@
+{{> header}}
+
+# Risk Analysis & Mitigation Plan
+{{#if customBranding}}
+*Comprehensive Risk Assessment for {{branding.companyName}}*
+{{/if}}
+
+**Project:** {{projectName}}  
+**Generated:** {{formatDate generatedAt}}  
+**Analysis Depth:** {{capitalize analysisDepth}}  
+**Risk Assessment Date:** {{formatDate riskAssessment.assessmentDate}}
+
+---
+
+## Executive Summary
+
+This comprehensive risk analysis identifies, assesses, and provides mitigation strategies for potential risks that could impact the successful delivery of **{{projectName}}**. The analysis covers technical, business, operational, and strategic risks with quantified impact assessments and actionable mitigation plans.
+
+{{#if comprehensiveAnalysis}}
+### Risk Profile Overview
+
+**Overall Risk Score:** {{riskAssessment.overallRiskScore}}/100  
+**Risk Tolerance:** {{riskAssessment.riskTolerance}}  
+**Total Identified Risks:** {{riskAssessment.totalRisks}}
+
+**Risk Distribution:**
+- **High Impact:** {{riskAssessment.distribution.highImpact}} risks
+- **Medium Impact:** {{riskAssessment.distribution.mediumImpact}} risks
+- **Low Impact:** {{riskAssessment.distribution.lowImpact}} risks
+
+**Budget at Risk:** ${{riskAssessment.budgetAtRisk}} ({{riskAssessment.budgetAtRiskPercentage}}% of total budget)
+**Schedule at Risk:** {{riskAssessment.scheduleAtRisk}} ({{riskAssessment.scheduleAtRiskPercentage}}% of timeline)
+{{/if}}
+
+## Risk Assessment Matrix
+
+{{riskMatrix riskAssessment.risks}}
+
+## Detailed Risk Analysis
+
+{{#if riskAssessment.risks}}
+{{#each riskAssessment.risks}}
+## {{category}} Risk: {{name}}
+
+**Risk ID:** {{riskId}}  
+**Probability:** {{probability}} ({{probabilityScore}}/5)  
+**Impact:** {{impact}} ({{impactScore}}/5)  
+**Risk Score:** {{riskScore}}/25  
+**Priority:** {{priority}}
+
+### Risk Description
+
+{{description}}
+
+### Potential Impact
+
+{{#each impacts}}
+#### {{category}} Impact
+**Severity:** {{severity}}  
+**Description:** {{description}}  
+{{#if quantification}}**Quantified Impact:** {{quantification}}{{/if}}
+
+{{#if detailedAnalysis}}
+**Affected Areas:**
+{{bulletList affectedAreas}}
+
+**Dependencies:**
+{{#if dependencies.length}}
+{{bulletList dependencies}}
+{{else}}
+*No specific dependencies identified*
+{{/if}}
+
+**Cascade Effects:**
+{{#if cascadeEffects.length}}
+{{bulletList cascadeEffects}}
+{{else}}
+*No cascade effects identified*
+{{/if}}
+{{/if}}
+
+---
+{{/each}}
+
+### Root Cause Analysis
+
+{{#if detailedAnalysis}}
+**Primary Causes:**
+{{bulletList rootCauses.primary}}
+
+**Contributing Factors:**
+{{bulletList rootCauses.contributing}}
+
+**Underlying Conditions:**
+{{bulletList rootCauses.underlying}}
+
+#### Fishbone Analysis
+
+```
+Problem: {{fishboneAnalysis.problem}}
+
+Methods        Machines        Materials
+    |             |               |
+    |             |               |
+{{#each fishboneAnalysis.methods}}    {{this}}{{/each}}    {{#each fishboneAnalysis.machines}}{{this}}{{/each}}    {{#each fishboneAnalysis.materials}}{{this}}{{/each}}
+    |             |               |
+    +-------------|---------------+
+                  |
+                Problem
+                  |
+    +-------------|---------------+
+    |             |               |
+{{#each fishboneAnalysis.people}}    {{this}}{{/each}}    {{#each fishboneAnalysis.environment}}{{this}}{{/each}}    {{#each fishboneAnalysis.measurement}}{{this}}{{/each}}
+    |             |               |
+    |             |               |
+  People      Environment     Measurement
+```
+{{/if}}
+
+### Risk Response Strategy
+
+**Response Type:** {{responseStrategy.type}}  
+**Strategy Owner:** {{responseStrategy.owner}}  
+**Target Risk Score:** {{responseStrategy.targetRiskScore}}/25
+
+{{#if responseStrategy.type === 'Mitigate'}}
+#### Mitigation Plan
+
+{{#each mitigationStrategies}}
+##### Strategy {{@index}}: {{name}}
+
+**Objective:** {{objective}}  
+**Implementation Timeline:** {{timeline}}  
+**Cost:** ${{cost}}  
+**Expected Risk Reduction:** {{riskReduction}}%
+
+**Action Steps:**
+{{numberedList actionSteps}}
+
+**Resources Required:**
+{{bulletList resourcesRequired}}
+
+**Success Criteria:**
+{{bulletList successCriteria}}
+
+{{#if detailedAnalysis}}
+**Implementation Challenges:**
+{{bulletList implementationChallenges}}
+
+**Dependencies:**
+{{#if dependencies.length}}
+{{bulletList dependencies}}
+{{else}}
+*No dependencies*
+{{/if}}
+
+**Monitoring Plan:**
+- **Key Indicators:** {{bulletList monitoring.keyIndicators}}
+- **Review Frequency:** {{monitoring.reviewFrequency}}
+- **Escalation Criteria:** {{monitoring.escalationCriteria}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+**Cost-Benefit Analysis:**
+- **Mitigation Cost:** ${{costBenefitAnalysis.mitigationCost}}
+- **Risk Cost (if occurs):** ${{costBenefitAnalysis.riskCost}}
+- **Net Benefit:** ${{costBenefitAnalysis.netBenefit}}
+- **ROI:** {{costBenefitAnalysis.roi}}%
+{{/if}}
+
+---
+{{/each}}
+{{/if}}
+
+{{#if responseStrategy.type === 'Transfer'}}
+#### Risk Transfer Plan
+
+**Transfer Method:** {{transferPlan.method}}  
+**Transfer Partner:** {{transferPlan.partner}}  
+**Coverage:** {{transferPlan.coverage}}%  
+**Cost:** ${{transferPlan.cost}}
+
+**Terms & Conditions:**
+{{bulletList transferPlan.terms}}
+
+**Residual Risk:** {{transferPlan.residualRisk}}
+{{/if}}
+
+{{#if responseStrategy.type === 'Accept'}}
+#### Risk Acceptance Plan
+
+**Acceptance Rationale:** {{acceptancePlan.rationale}}  
+**Contingency Budget:** ${{acceptancePlan.contingencyBudget}}  
+**Monitoring Plan:** {{acceptancePlan.monitoringPlan}}
+
+**Trigger Events:**
+{{bulletList acceptancePlan.triggerEvents}}
+
+**Response Actions:**
+{{bulletList acceptancePlan.responseActions}}
+{{/if}}
+
+{{#if responseStrategy.type === 'Avoid'}}
+#### Risk Avoidance Plan
+
+**Avoidance Strategy:** {{avoidancePlan.strategy}}  
+**Alternative Approach:** {{avoidancePlan.alternativeApproach}}  
+**Implementation Cost:** ${{avoidancePlan.implementationCost}}
+
+**Impact on Project:**
+- **Schedule Impact:** {{avoidancePlan.scheduleImpact}}
+- **Budget Impact:** ${{avoidancePlan.budgetImpact}}
+- **Scope Impact:** {{avoidancePlan.scopeImpact}}
+{{/if}}
+
+### Contingency Planning
+
+{{#if contingencyPlans}}
+{{#each contingencyPlans}}
+#### Contingency Plan {{@index}}: {{name}}
+
+**Trigger Conditions:**
+{{bulletList triggerConditions}}
+
+**Activation Criteria:** {{activationCriteria}}
+
+**Response Actions:**
+{{numberedList responseActions}}
+
+**Resource Requirements:**
+{{bulletList resourceRequirements}}
+
+**Decision Authority:** {{decisionAuthority}}  
+**Activation Timeline:** {{activationTimeline}}
+
+{{#if detailedAnalysis}}
+**Communication Plan:**
+{{#each communicationPlan}}
+- **{{stakeholder}}:** {{method}} - {{timing}}
+{{/each}}
+
+**Recovery Objectives:**
+- **Recovery Time Objective (RTO):** {{rto}}
+- **Recovery Point Objective (RPO):** {{rpo}}
+- **Maximum Tolerable Downtime:** {{mtd}}
+{{/if}}
+
+---
+{{/each}}
+{{/if}}
+
+{{#if comprehensiveAnalysis}}
+### Risk Interdependencies
+
+{{#if riskInterdependencies.length}}
+**Related Risks:**
+{{#each riskInterdependencies}}
+- **{{relatedRisk}}:** {{relationship}} (Impact: {{relationshipImpact}})
+{{/each}}
+
+**Correlation Analysis:**
+{{#each correlationAnalysis}}
+- **{{riskPair}}:** {{correlationType}} ({{correlationStrength}})
+{{/each}}
+{{else}}
+*No significant risk interdependencies identified*
+{{/if}}
+{{/if}}
+
+---
+{{/each}}
+{{/if}}
+
+## Risk Categories Analysis
+
+{{#if riskAssessment.categoryAnalysis}}
+{{#each riskAssessment.categoryAnalysis}}
+### {{category}} Risks
+
+**Category Risk Score:** {{categoryRiskScore}}/100  
+**Number of Risks:** {{numberOfRisks}}  
+**Average Impact:** {{averageImpact}}/5  
+**Average Probability:** {{averageProbability}}/5
+
+{{#if detailedAnalysis}}
+**Category Characteristics:**
+{{bulletList characteristics}}
+
+**Common Mitigation Approaches:**
+{{bulletList commonMitigations}}
+
+**Category Trends:**
+{{bulletList trends}}
+{{/if}}
+
+#### Key Risks in Category
+
+{{#each keyRisks}}
+- **{{name}}:** {{riskScore}}/25 - {{mitigationStatus}}
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+#### Category Risk Profile Over Time
+
+| Metric | Current | 3 Months | 6 Months | 12 Months |
+|--------|---------|----------|----------|-----------|
+| Risk Score | {{riskProfile.current}} | {{riskProfile.threeMonths}} | {{riskProfile.sixMonths}} | {{riskProfile.twelveMonths}} |
+| Active Risks | {{activeRisks.current}} | {{activeRisks.threeMonths}} | {{activeRisks.sixMonths}} | {{activeRisks.twelveMonths}} |
+| Mitigation Budget | ${{mitigationBudget.current}} | ${{mitigationBudget.threeMonths}} | ${{mitigationBudget.sixMonths}} | ${{mitigationBudget.twelveMonths}} |
+{{/if}}
+
+---
+{{/each}}
+{{/if}}
+
+## Mitigation Strategy Summary
+
+{{#if mitigationStrategies}}
+### Overall Mitigation Approach
+
+**Total Mitigation Budget:** ${{mitigationStrategies.totalBudget}}  
+**Expected Risk Reduction:** {{mitigationStrategies.expectedReduction}}%  
+**Implementation Timeline:** {{mitigationStrategies.implementationTimeline}}
+
+### Mitigation Priority Matrix
+
+| Priority | Risk | Mitigation Strategy | Cost | Timeline | Risk Reduction |
+|----------|------|-------------------|------|----------|----------------|
+{{#each mitigationStrategies.priorityMatrix}}
+| {{priority}} | {{risk}} | {{strategy}} | ${{cost}} | {{timeline}} | {{riskReduction}}% |
+{{/each}}
+
+{{#if detailedAnalysis}}
+### Resource Allocation
+
+{{#each mitigationStrategies.resourceAllocation}}
+#### {{resourceType}}
+
+**Total Allocation:** {{totalAllocation}}  
+**Utilization:** {{utilization}}%
+
+**Distribution:**
+{{#each distribution}}
+- **{{category}}:** {{allocation}} ({{percentage}}%)
+{{/each}}
+
+**Optimization Opportunities:**
+{{bulletList optimizationOpportunities}}
+
+---
+{{/each}}
+
+### Implementation Timeline
+
+```
+Mitigation Implementation Gantt:
+{{ganttChart mitigationStrategies.timeline}}
+```
+
+#### Implementation Phases
+
+{{#each mitigationStrategies.implementationPhases}}
+##### Phase {{phase}}: {{name}}
+
+**Duration:** {{duration}}  
+**Parallel Activities:** {{parallelActivities}}
+
+**Key Milestones:**
+{{#each milestones}}
+- **{{milestone}}:** {{formatDate date}} - {{deliverable}}
+{{/each}}
+
+**Critical Path:**
+{{bulletList criticalPath}}
+
+**Dependencies:**
+{{#if dependencies.length}}
+{{bulletList dependencies}}
+{{else}}
+*No dependencies*
+{{/if}}
+
+---
+{{/each}}
+{{/if}}
+{{/if}}
+
+## Monitoring & Control
+
+### Risk Monitoring Framework
+
+{{#if riskMonitoring}}
+**Monitoring Frequency:** {{riskMonitoring.frequency}}  
+**Review Process:** {{riskMonitoring.reviewProcess}}  
+**Escalation Criteria:** {{bulletList riskMonitoring.escalationCriteria}}
+
+#### Key Risk Indicators (KRIs)
+
+{{#each riskMonitoring.keyRiskIndicators}}
+##### {{name}}
+
+**Description:** {{description}}  
+**Measurement:** {{measurement}}  
+**Threshold:** {{threshold}}  
+**Alert Level:** {{alertLevel}}
+
+**Data Source:** {{dataSource}}  
+**Collection Frequency:** {{collectionFrequency}}  
+**Reporting:** {{reporting}}
+
+{{#if detailedAnalysis}}
+**Trend Analysis:**
+- **Current Value:** {{trendAnalysis.currentValue}}
+- **30-day Trend:** {{trendAnalysis.thirtyDayTrend}}
+- **90-day Trend:** {{trendAnalysis.ninetyDayTrend}}
+
+**Correlation Factors:**
+{{bulletList correlationFactors}}
+{{/if}}
+
+---
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Risk Dashboard Design
+
+**Dashboard Components:**
+{{#each riskMonitoring.dashboard.components}}
+- **{{component}}:** {{description}}
+  - **Update Frequency:** {{updateFrequency}}
+  - **Data Sources:** {{bulletList dataSources}}
+  - **Alert Conditions:** {{bulletList alertConditions}}
+{{/each}}
+
+**User Access:**
+{{#each riskMonitoring.dashboard.userAccess}}
+- **{{role}}:** {{accessLevel}} - {{bulletList permissions}}
+{{/each}}
+
+### Automated Risk Alerts
+
+{{#each riskMonitoring.automatedAlerts}}
+#### {{alertType}} Alerts
+
+**Trigger Conditions:**
+{{bulletList triggerConditions}}
+
+**Alert Recipients:**
+{{#each recipients}}
+- **{{role}}:** {{contactMethod}} - {{responseTime}}
+{{/each}}
+
+**Escalation Path:**
+{{numberedList escalationPath}}
+
+**Alert Actions:**
+{{bulletList alertActions}}
+
+---
+{{/each}}
+{{/if}}
+{{/if}}
+
+## Governance & Reporting
+
+### Risk Governance Structure
+
+{{#if riskGovernance}}
+**Risk Committee:** {{riskGovernance.committee}}  
+**Committee Chair:** {{riskGovernance.chair}}  
+**Meeting Frequency:** {{riskGovernance.meetingFrequency}}
+
+#### Roles & Responsibilities
+
+{{#each riskGovernance.rolesResponsibilities}}
+##### {{role}}
+
+**Primary Responsibilities:**
+{{bulletList responsibilities}}
+
+**Decision Authority:** {{decisionAuthority}}  
+**Reporting Requirements:** {{reportingRequirements}}
+
+{{#if detailedAnalysis}}
+**Key Performance Indicators:**
+{{bulletList kpis}}
+
+**Success Metrics:**
+{{bulletList successMetrics}}
+{{/if}}
+
+---
+{{/each}}
+
+{{#if detailedAnalysis}}
+### Risk Reporting
+
+#### Standard Reports
+
+{{#each riskGovernance.standardReports}}
+##### {{reportName}}
+
+**Frequency:** {{frequency}}  
+**Audience:** {{bulletList audience}}  
+**Content:** {{bulletList content}}  
+**Format:** {{format}}
+
+**Distribution Method:** {{distributionMethod}}  
+**Review Process:** {{reviewProcess}}
+
+---
+{{/each}}
+
+#### Executive Risk Summary
+
+**Report Elements:**
+- Risk heatmap visualization
+- Top 10 risks by impact and probability
+- Mitigation status dashboard
+- Budget variance analysis
+- Timeline impact assessment
+
+**Decision Points:**
+{{bulletList riskGovernance.decisionPoints}}
+{{/if}}
+{{/if}}
+
+## Cost-Benefit Analysis
+
+{{#if comprehensiveAnalysis}}
+### Risk Cost Analysis
+
+**Total Risk Exposure:** ${{costBenefitAnalysis.totalRiskExposure}}  
+**Mitigation Investment:** ${{costBenefitAnalysis.mitigationInvestment}}  
+**Net Risk Reduction:** ${{costBenefitAnalysis.netRiskReduction}}  
+**Return on Investment:** {{costBenefitAnalysis.roi}}%
+
+#### Risk Cost Breakdown
+
+| Risk Category | Potential Cost | Mitigation Cost | Net Benefit | ROI |
+|---------------|----------------|-----------------|-------------|-----|
+{{#each costBenefitAnalysis.riskBreakdown}}
+| {{category}} | ${{potentialCost}} | ${{mitigationCost}} | ${{netBenefit}} | {{roi}}% |
+{{/each}}
+| **Total** | **${{costBenefitAnalysis.totals.potentialCost}}** | **${{costBenefitAnalysis.totals.mitigationCost}}** | **${{costBenefitAnalysis.totals.netBenefit}}** | **{{costBenefitAnalysis.totals.roi}}%** |
+
+### Value at Risk (VaR) Analysis
+
+**95% Confidence VaR:** ${{varAnalysis.var95}}  
+**99% Confidence VaR:** ${{varAnalysis.var99}}  
+**Expected Shortfall:** ${{varAnalysis.expectedShortfall}}
+
+**Monte Carlo Simulation Results:**
+- **Simulations Run:** {{varAnalysis.monteCarloSimulations}}
+- **Average Loss:** ${{varAnalysis.averageLoss}}
+- **Maximum Loss:** ${{varAnalysis.maximumLoss}}
+- **Loss Distribution:** {{varAnalysis.lossDistribution}}
+
+### Sensitivity Analysis
+
+{{#each costBenefitAnalysis.sensitivityAnalysis}}
+#### {{parameter}} Sensitivity
+
+**Base Case:** {{baseCase}}  
+**Optimistic Scenario:** {{optimisticScenario}} ({{optimisticImpact}} impact)  
+**Pessimistic Scenario:** {{pessimisticScenario}} ({{pessimisticImpact}} impact)
+
+**Sensitivity Factor:** {{sensitivityFactor}}  
+**Impact Range:** ${{impactRange.min}} - ${{impactRange.max}}
+
+---
+{{/each}}
+{{/if}}
+
+## Industry Benchmarks & Best Practices
+
+{{#if detailedAnalysis}}
+### Industry Risk Benchmarks
+
+{{#each industryBenchmarks}}
+#### {{industry}} Industry
+
+**Average Risk Score:** {{averageRiskScore}}/100  
+**Common Risk Categories:** {{bulletList commonRiskCategories}}  
+**Typical Mitigation Budget:** {{mitigationBudgetRange}}% of project budget
+
+**Best Practices:**
+{{bulletList bestPractices}}
+
+**Lessons Learned:**
+{{bulletList lessonsLearned}}
+
+---
+{{/each}}
+
+### Regulatory Considerations
+
+{{#each regulatoryConsiderations}}
+#### {{regulation}}
+
+**Applicability:** {{applicability}}  
+**Compliance Requirements:** {{bulletList complianceRequirements}}  
+**Risk Implications:** {{riskImplications}}
+
+**Mitigation Strategies:**
+{{bulletList mitigationStrategies}}
+
+**Monitoring Requirements:**
+{{bulletList monitoringRequirements}}
+
+---
+{{/each}}
+{{/if}}
+
+## Risk Treatment Plan Summary
+
+### Implementation Roadmap
+
+{{#each riskTreatmentPlan.phases}}
+#### Phase {{phase}}: {{name}}
+
+**Timeline:** {{timeline}}  
+**Budget:** ${{budget}}  
+**Risk Targets:** {{bulletList riskTargets}}
+
+**Key Activities:**
+{{numberedList keyActivities}}
+
+**Success Criteria:**
+{{bulletList successCriteria}}
+
+**Dependencies:**
+{{#if dependencies.length}}
+{{bulletList dependencies}}
+{{else}}
+*No dependencies*
+{{/if}}
+
+---
+{{/each}}
+
+### Success Metrics
+
+{{#each riskTreatmentPlan.successMetrics}}
+- **{{metric}}:** {{target}} ({{baseline}} baseline)
+{{/each}}
+
+{{#if comprehensiveAnalysis}}
+### Continuous Improvement
+
+**Review Cycle:** {{riskTreatmentPlan.continuousImprovement.reviewCycle}}  
+**Improvement Methodology:** {{riskTreatmentPlan.continuousImprovement.methodology}}
+
+**Key Improvement Areas:**
+{{bulletList riskTreatmentPlan.continuousImprovement.keyAreas}}
+
+**Feedback Mechanisms:**
+{{bulletList riskTreatmentPlan.continuousImprovement.feedbackMechanisms}}
+{{/if}}
+
+## Conclusion
+
+This comprehensive risk analysis provides a structured approach to managing project risks for **{{projectName}}**. The analysis identifies {{riskAssessment.totalRisks}} risks across multiple categories, with a total potential impact of ${{costBenefitAnalysis.totalRiskExposure}} and a recommended mitigation investment of ${{costBenefitAnalysis.mitigationInvestment}}.
+
+### Key Recommendations
+
+1. **Immediate Actions:** Address {{riskAssessment.distribution.highImpact}} high-impact risks within the next 30 days
+2. **Resource Allocation:** Allocate ${{costBenefitAnalysis.mitigationInvestment}} for risk mitigation activities
+3. **Monitoring:** Implement continuous risk monitoring with {{riskMonitoring.frequency}} reviews
+4. **Governance:** Establish risk committee with {{riskGovernance.meetingFrequency}} meetings
+
+{{#if comprehensiveAnalysis}}
+### Strategic Risk Insights
+
+- **Primary Risk Driver:** {{riskInsights.primaryRiskDriver}}
+- **Most Cost-Effective Mitigation:** {{riskInsights.mostCostEffectiveMitigation}}
+- **Highest ROI Strategy:** {{riskInsights.highestROIStrategy}}
+- **Critical Success Factor:** {{riskInsights.criticalSuccessFactor}}
+
+### Long-term Risk Management
+
+The risk landscape will evolve throughout the project lifecycle. This analysis should be updated {{riskTreatmentPlan.updateFrequency}} to reflect changing conditions, new risks, and mitigation effectiveness. The risk management framework established here provides the foundation for ongoing risk governance and continuous improvement.
+{{/if}}
+
+{{#if customBranding}}
+---
+
+*This comprehensive risk analysis was prepared for {{branding.companyName}} to ensure proactive risk management and project success.*
+{{/if}}
+
+{{> footer}}

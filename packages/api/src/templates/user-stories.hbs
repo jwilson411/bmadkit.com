@@ -1,0 +1,277 @@
+{{> header}}
+
+## User Stories Overview
+
+{{#if projectScope.userStories}}
+This document contains {{projectScope.userStories.length}} user stories organized by feature priority and development phases.
+
+### Summary Statistics
+- **Total Stories:** {{projectScope.userStories.length}}
+- **High Priority:** {{#each projectScope.userStories}}{{#ifEquals priority "high"}}1{{/ifEquals}}{{/each}} stories
+- **Medium Priority:** {{#each projectScope.userStories}}{{#ifEquals priority "medium"}}1{{/ifEquals}}{{/each}} stories  
+- **Low Priority:** {{#each projectScope.userStories}}{{#ifEquals priority "low"}}1{{/ifEquals}}{{/each}} stories
+{{else}}
+*User stories will be generated during project management phase.*
+{{/if}}
+
+## Epic Breakdown
+
+{{#if projectScope.features}}
+{{#each projectScope.features}}
+### Epic: {{name}}
+**Priority:** {{priority}} | **Complexity:** {{complexity}}
+
+{{description}}
+
+#### User Stories for {{name}}
+
+{{#each userStories}}
+##### {{title}}
+**Story ID:** {{id}}  
+**Priority:** {{priority}}  
+**Story Points:** {{storyPoints}}  
+**Sprint:** {{sprint}}
+
+**As a** {{persona}},  
+**I want** {{want}},  
+**So that** {{benefit}}.
+
+**Acceptance Criteria:**
+{{orderedList acceptanceCriteria}}
+
+{{#if technicalNotes}}
+**Technical Notes:**
+{{technicalNotes}}
+{{/if}}
+
+{{#if dependencies.length}}
+**Dependencies:**
+{{bulletList dependencies}}
+{{/if}}
+
+---
+
+{{/each}}
+
+{{/each}}
+{{else}}
+*Feature epics will be defined during project scoping.*
+{{/if}}
+
+## User Story Details
+
+{{#if projectScope.userStories}}
+{{#each projectScope.userStories}}
+## Story {{@index}}: {{title}}
+
+**Story ID:** {{id}}  
+**Epic:** {{epic}}  
+**Priority:** {{capitalize priority}}  
+**Story Points:** {{storyPoints}}  
+**Assigned Sprint:** {{#if sprint}}Sprint {{sprint}}{{else}}Backlog{{/if}}
+
+### User Story
+**As a** {{persona}},  
+**I want** {{want}},  
+**So that** {{benefit}}.
+
+### Detailed Description
+{{description}}
+
+### Acceptance Criteria
+{{#each acceptanceCriteria}}
+{{@index}}. {{this}}
+{{/each}}
+
+### Definition of Done
+{{#if definitionOfDone}}
+{{bulletList definitionOfDone}}
+{{else}}
+- [ ] Code implemented and reviewed
+- [ ] Unit tests written and passing
+- [ ] Integration tests passing
+- [ ] Documentation updated
+- [ ] UX design requirements met
+- [ ] Accessibility requirements verified
+- [ ] Performance criteria met
+- [ ] Security review completed
+{{/if}}
+
+### Technical Implementation Notes
+{{#if technicalNotes}}
+{{technicalNotes}}
+{{else}}
+*Technical implementation details to be defined during development.*
+{{/if}}
+
+{{#if uiMockups}}
+### UI/UX Requirements
+{{uiMockups}}
+{{/if}}
+
+{{#if apiRequirements}}
+### API Requirements
+{{bulletList apiRequirements}}
+{{/if}}
+
+{{#if testScenarios}}
+### Test Scenarios
+{{orderedList testScenarios}}
+{{/if}}
+
+{{#if dependencies.length}}
+### Dependencies
+{{#each dependencies}}
+- **{{type}}:** {{description}}
+{{/each}}
+{{/if}}
+
+{{#if risks.length}}
+### Risks and Mitigation
+{{#each risks}}
+**Risk:** {{risk}}  
+**Impact:** {{impact}}  
+**Mitigation:** {{mitigation}}
+
+{{/each}}
+{{/if}}
+
+---
+
+{{/each}}
+{{else}}
+*User stories will be generated based on feature requirements and user research.*
+{{/if}}
+
+## Sprint Planning
+
+{{#if sprintPlan}}
+### Sprint Organization
+
+{{#each sprintPlan}}
+#### Sprint {{number}}
+**Duration:** {{duration}}  
+**Sprint Goal:** {{goal}}  
+**Capacity:** {{capacity}} story points
+
+**Stories Included:**
+{{#each stories}}
+- {{title}} ({{storyPoints}} points) - {{priority}} priority
+{{/each}}
+
+**Sprint Risks:**
+{{#if risks.length}}
+{{bulletList risks}}
+{{else}}
+*No major risks identified for this sprint.*
+{{/if}}
+
+---
+
+{{/each}}
+{{else}}
+*Sprint planning will be completed during project management phase.*
+{{/if}}
+
+## User Personas
+
+{{#if userExperience.personas}}
+{{#each userExperience.personas}}
+### {{name}}
+**Role:** {{role}}  
+**Demographics:** {{demographics}}
+
+**Goals:**
+{{bulletList goals}}
+
+**Pain Points:**
+{{bulletList painPoints}}
+
+**Technical Proficiency:** {{technicalProficiency}}
+
+**Relevant User Stories:**
+{{#each relatedStories}}
+- {{this}}
+{{/each}}
+
+---
+
+{{/each}}
+{{else}}
+*User personas will be defined during UX research phase.*
+{{/if}}
+
+## Traceability Matrix
+
+{{#if projectScope.userStories}}
+### Requirements to Stories Mapping
+
+| Requirement | Related Stories | Priority | Status |
+|-------------|----------------|----------|---------|
+{{#each businessRequirements.functionalRequirements}}
+| {{title}} | {{#each relatedStories}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} | {{priority}} | {{status}} |
+{{/each}}
+
+### Stories to Test Cases Mapping
+
+| Story | Test Cases | Coverage |
+|-------|------------|----------|
+{{#each projectScope.userStories}}
+| {{title}} | {{#if testScenarios.length}}{{testScenarios.length}} scenarios{{else}}TBD{{/if}} | {{#if testScenarios.length}}{{helpers.formatPercentage coverage}}{{else}}0%{{/if}} |
+{{/each}}
+{{else}}
+*Traceability matrix will be populated as requirements and stories are defined.*
+{{/if}}
+
+## Story Estimation Details
+
+{{#if projectScope.userStories}}
+### Estimation Methodology
+Stories are estimated using Planning Poker with the following scale:
+- **1 point:** Very simple, well understood
+- **2 points:** Simple with minimal complexity
+- **3 points:** Moderate complexity
+- **5 points:** Complex, some unknowns
+- **8 points:** Very complex, many unknowns
+- **13 points:** Extremely complex, requires breakdown
+
+### Story Point Distribution
+
+| Story Points | Count | Percentage |
+|--------------|-------|------------|
+{{#each pointDistribution}}
+| {{points}} | {{count}} | {{helpers.formatPercentage percentage}} |
+{{/each}}
+
+**Total Story Points:** {{totalStoryPoints}}  
+**Average Story Points:** {{averageStoryPoints}}
+{{else}}
+*Story estimation will be completed during backlog refinement.*
+{{/if}}
+
+## Backlog Management
+
+### Story States
+- **Draft:** Initial story creation, needs refinement
+- **Ready:** Story meets definition of ready criteria
+- **In Progress:** Development work has started
+- **Review:** Story is in code review or testing
+- **Done:** Story meets definition of done criteria
+
+### Definition of Ready
+Before a story can be selected for a sprint, it must meet these criteria:
+- [ ] Story is well understood by the team
+- [ ] Acceptance criteria are clearly defined
+- [ ] Dependencies are identified and resolved
+- [ ] Technical approach is understood
+- [ ] Story is properly estimated
+- [ ] UI/UX requirements are defined (if applicable)
+
+### Story Prioritization Criteria
+1. **Business Value:** Impact on user experience and business objectives
+2. **Risk Mitigation:** Stories that reduce technical or business risk
+3. **Dependencies:** Stories that unlock other work
+4. **Learning:** Stories that provide valuable insights
+5. **Foundation:** Stories that enable future development
+
+{{> footer}}
